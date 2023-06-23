@@ -1,11 +1,13 @@
 server:
-  port: 8084
+  port: 8765
 
 # spring.main.allow-circular-references=true
 
 spring:
   application:
     name: SPRING-CLOUD-GATEWAY
+  profiles:
+    active: dev
   cloud:
     gateway:
       routes:
@@ -18,16 +20,19 @@ spring:
           uri: lb://SUPPORT-SERVICE # URL for the "support service" route
           predicates:
             - Path=/support-service/**
+
+        - id: "STUDENTS-CONNECT-SERVICE"
+          uri: lb://STUDENTS-CONNECT-SERVICE" # URL for the "students-connect-service" route
+          predicates:
+            - Path=/students-connect-service/**
+
+        - id: "HORIZONS-SERVICE"
+          uri: lb://HORIZONS-SERVICE # URL for the "horizons service" route
+          predicates:
+            - Path=/horizons-service/**
+
   config:
-    import: optional:configserver:http://localhost:8087
-# eureka:
-#   instance:
-#     prefer-ip-address: true
-#   client:
-#     fetch-registry: true
-#     register-with-eureka: true
-#     service-url:
-#       defaultZone: http://localhost:8761/eureka
+    import: optional:configserver:http://localhost:8763
 
 logging:
   level:

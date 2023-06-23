@@ -1,0 +1,48 @@
+version: "3"
+services:
+  naming-server:
+    image: naming-server:0.0.1-SNAPSHOT
+    ports:
+      - 8761:8761
+
+  spring-cloud-gateway:
+    image: spring-cloud-gateway:0.0.1-SNAPSHOT
+    ports:
+      - 8084:8084
+    depends_on:
+      naming-server:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      authentication-service:
+        condition: service_healthy
+      horizons-service:
+        condition: service_healthy
+      students-connect-service:
+        condition: service_healthy
+      support-service:
+        condition: service_healthy
+
+  config-server:
+    image: config-server:0.0.1-SNAPSHOT
+    ports:
+      - 8087:8087
+  authentication-service:
+    image: authentication-service:0.0.1-SNAPSHOT
+    ports:
+      - 8081:8081
+
+  horizons-service:
+    image: horizons-service:0.0.1-SNAPSHOT
+    ports:
+      - 8082:8082
+
+  students-connect-service:
+    image: students-connect-service:0.0.1-SNAPSHOT
+    ports:
+      - 8085:8085
+
+  support-service:
+    image: support-service:0.0.1-SNAPSHOT
+    ports:
+      - 8081:8081

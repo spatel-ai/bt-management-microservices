@@ -1,10 +1,9 @@
 #!/bin/bash 
  
-cd api-gateway && chmod +x mvnw && ./mvnw spring-boot:build-image -DskipTests -e && cd .. 
+cd spring-cloud-gateway && chmod +x mvnw && ./mvnw spring-boot:build-image -DskipTests -e && cd .. 
 cd authentication-service && chmod +x mvnw && ./mvnw spring-boot:build-image -DskipTests -e && cd .. 
-cd masters-service && chmod +x mvnw && ./mvnw spring-boot:build-image -DskipTests -e && cd .. 
+cd horizons-service && chmod +x mvnw && ./mvnw spring-boot:build-image -DskipTests -e && cd .. 
 cd naming-server && chmod +x mvnw && ./mvnw spring-boot:build-image -DskipTests -e && cd .. 
-cd pool-upload && chmod +x mvnw && ./mvnw spring-boot:build-image -DskipTests -e && cd .. 
-cd portfolio-service && chmod +x mvnw && ./mvnw spring-boot:build-image -DskipTests -e && cd .. 
-cd utility-service && chmod +x mvnw && ./mvnw spring-boot:build-image -DskipTests -e && cd .. 
-cd accounting-service && chmod +x mvnw && ./mvnw spring-boot:build-image -DskipTests -e && cd ..
+cd config-server && chmod +x mvnw && ./mvnw spring-boot:build-image -DskipTests -e && cd .. 
+cd support-service && chmod +x mvnw && ./mvnw spring-boot:build-image -DskipTests -e && cd .. 
+cd students-connect-service && chmod +x mvnw && ./mvnw spring-boot:build-image -DskipTests -e && cd .. 

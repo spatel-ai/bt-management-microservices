@@ -24,7 +24,7 @@ spring:
             - Path=/support-service/**
 
         - id: "STUDENTS-CONNECT-SERVICE"
-          uri: lb://STUDENTS-CONNECT-SERVICE" # URL for the "students-connect-service" route
+          uri: lb://STUDENTS-CONNECT-SERVICE # URL for the "students-connect-service" route
           predicates:
             - Path=/students-connect-service/**
 

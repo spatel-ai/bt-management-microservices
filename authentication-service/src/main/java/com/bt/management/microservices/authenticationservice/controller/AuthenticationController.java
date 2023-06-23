@@ -10,9 +10,7 @@ public class AuthenticationController {
 
   @GetMapping("/")
   public String getResponse() {
-    System.out.println(
-      " From api %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-    );
-    return "hi from Authentication service";
+    System.out.println(" From api %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+    return "<h1>hi from Authentication service </h1>";
   }
 }

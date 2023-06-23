@@ -6,8 +6,10 @@ server:
 spring:
   application:
     name: SPRING-CLOUD-GATEWAY
+
   profiles:
-    active: dev
+    active: default
+
   cloud:
     gateway:
       routes:

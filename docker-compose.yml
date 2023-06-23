@@ -8,7 +8,7 @@ services:
   spring-cloud-gateway:
     image: spring-cloud-gateway:0.0.1-SNAPSHOT
     ports:
-      - 8084:8084
+      - 8765:8765
     depends_on:
       naming-server:
         condition: service_healthy
@@ -26,7 +26,7 @@ services:
   config-server:
     image: config-server:0.0.1-SNAPSHOT
     ports:
-      - 8087:8087
+      - 8763:8763
   authentication-service:
     image: authentication-service:0.0.1-SNAPSHOT
     ports:
@@ -40,9 +40,9 @@ services:
   students-connect-service:
     image: students-connect-service:0.0.1-SNAPSHOT
     ports:
-      - 8085:8085
+      - 8083:8083
 
   support-service:
     image: support-service:0.0.1-SNAPSHOT
     ports:
-      - 8081:8081
+      - 8084:8084

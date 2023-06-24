@@ -34,7 +34,7 @@ spring:
             - Path=/horizons-service/**
 
   config:
-    import: optional:configserver:http://localhost:8763
+    import: optional:configserver:http://naming-server:8763
 
 logging:
   level:

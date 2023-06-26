@@ -9,7 +9,6 @@ pipeline {
     stages {
         stage('Which Java') {
             steps {
-                echo 'cd naming-server && mvn package cd ..'
                 sh 'java --version'
             }
         }
@@ -17,6 +16,7 @@ pipeline {
             steps {
                 sh "ls -a"
                 sh "docker images"              
+                sh "docker ps -a"              
                 sh 'cd naming-server && ls -a && chmod +x mvnw && ./mvnw spring-boot:build-image -DskipTests -e && cd .. '
             }
         }

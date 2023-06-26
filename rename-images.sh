@@ -13,6 +13,8 @@ echo "--------------------------------------------------------------------------
 echo "Started Image pushing Procedure"
 echo "------------------------------------------------------------------------------------------------"
 
+docker images
+
 docker push imshubhampatel/naming-server:0.0.1-SNAPSHOT
 docker push imshubhampatel/horizons-service:0.0.1-SNAPSHOT
 docker push imshubhampatel/config-server:0.0.1-SNAPSHOT

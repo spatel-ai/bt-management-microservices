@@ -1,10 +1,14 @@
+
+
 pipeline {
+
+    
     agent any
 
     stages {
         stage('BUILD') {
             steps {
-                echo 'Building the application'
+                echo 'cd naming-server && chmod +x mvnw && ./mvnw spring-boot:build-image -DskipTests -e && cd ..'
             }
         }
         stage('TEST') {

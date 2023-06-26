@@ -1,7 +1,7 @@
 
 docker images
 docker rmi naming-server:0.0.1-SNAPSHOT
-docker rmi spring-cloud-gateway-server:0.0.1-SNAPSHOT
+docker rmi spring-cloud-gateway:0.0.1-SNAPSHOT
 docker rmi horizons-service:0.0.1-SNAPSHOT
 docker rmi support-service:0.0.1-SNAPSHOT
 docker rmi authentication-service:0.0.1-SNAPSHOT

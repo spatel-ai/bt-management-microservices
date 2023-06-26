@@ -1,14 +1,11 @@
 
 pipeline {
     agent any
-    tools {
-        maven 'Maven'
-    }
 
     stages {
         stage('BUILD') {
             steps {
-                sh 'mvn package'
+                sh 'cd naming-server && mvn package cd ..'
             }
         }
         stage('BUILD IMAGE') {

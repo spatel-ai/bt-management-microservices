@@ -12,7 +12,7 @@ pipeline {
             steps {
                 sh "ls -a"
                 sh "docker images"
-                sh 'cd naming-server && chmod +x mvnw && ./mvnw spring-boot:build-image -DskipTests -e && cd .. '
+                sh 'cd naming-server && ls -a && chmod +x mvnw && ./mvnw spring-boot:build-image -DskipTests -e && cd .. '
             }
         }
         stage('DEPLOY') {

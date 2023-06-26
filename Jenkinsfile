@@ -12,6 +12,9 @@ pipeline {
             steps {
                 sh "ls -a"
                 sh "docker images"
+                sh "java --version"
+                sh "mvn --version"
+                sh "javac --version"
                 sh 'cd naming-server && ls -a && chmod +x mvnw && ./mvnw spring-boot:build-image -DskipTests -e && cd .. '
             }
         }

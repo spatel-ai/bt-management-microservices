@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('BUILD') {
             steps {
-                sh 'cd naming-server && mvn package cd ..'
+                echo 'cd naming-server && mvn package cd ..'
             }
         }
         stage('BUILD IMAGE') {

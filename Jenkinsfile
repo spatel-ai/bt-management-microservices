@@ -12,10 +12,9 @@ pipeline {
     stages {
         stage('BUILD') {
             steps {
-                bat 'echo %SERVER_DOCKER_CREDS%'
+                // bat 'echo %SERVER_DOCKER_CREDS%'
                 withCredentials([usernamePassword(credentialsId: 'server-docker-creds', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
                     echo "Username: $USERNAME"
-                    echo "Password: $PASSWORD"
                     sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
                 }
             }

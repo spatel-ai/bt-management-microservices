@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('BUILD') {
             steps {
-                // sh 'chmod +x discard-images.sh && ./discard-images.sh'
+                sh 'chmod +x discard-images.sh && ./discard-images.sh'
             }
         }
         stage('BUILD IMAGE') {

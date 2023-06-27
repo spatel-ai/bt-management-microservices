@@ -6,12 +6,13 @@ pipeline {
     }
     environment {
         NEW_VERSION = '1.3.0'
+        DOCKER_CREDS = credientials('server-docker-creds')
     }
 
     stages {
         stage('BUILD') {
             steps {
-                sh 'chmod +x discard-images.sh && ./discard-images.sh'
+                // sh 'chmod +x discard-images.sh && ./discard-images.sh'
             }
         }
         stage('BUILD IMAGE') {
@@ -24,14 +25,8 @@ pipeline {
         stage('DEPLOY') {
             steps {
                 echo 'deploying the application'
-                sh ''
+                sh "docker data ${DOCKER_CREDS}"
                 // sh 'chmod +x rename-images.sh && ./rename-images.sh'
-                withCredentials([
-                    usernamePassword(credentials:'server-docker-creds', usernameVariable:USER, passwordVariable:PASSWORD)
-                ]) {
-                    sh "some script $USER"
-                    sh "echo $PASSWORD | docker login $USER --password-stdin"
-                }
             }
         }
     }

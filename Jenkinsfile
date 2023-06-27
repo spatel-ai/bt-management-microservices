@@ -6,16 +6,17 @@ pipeline {
     }
     environment {
         NEW_VERSION = '1.3.0'
-    // SERVER_DOCKER_CREDS = credentials('server-docker-creds')
+        SERVER_DOCKER_CREDS = credentials('server-docker-creds')
     }
 
     stages {
         stage('BUILD') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'server-docker-creds', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                    echo "Username: $USERNAME"
-                    echo "Password: $PASSWORD"
-                }
+                bat 'echo %SERVER_DOCKER_CREDS%'
+            // withCredentials([usernamePassword(credentialsId: 'server-docker-creds', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+            //     echo "Username: $USERNAME"
+            //     echo "Password: $PASSWORD"
+            // }
             }
         }
         stage('BUILD IMAGE') {
@@ -28,7 +29,7 @@ pipeline {
         stage('DEPLOY') {
             steps {
                 echo 'deploying the application'
-                // echo "docker data ${SERVER_DOCKER_CREDS}"
+            // echo "docker data ${SERVER_DOCKER_CREDS}"
             // sh 'chmod +x rename-images.sh && ./rename-images.sh'
             }
         }

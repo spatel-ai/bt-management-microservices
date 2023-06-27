@@ -6,17 +6,18 @@ pipeline {
     }
     environment {
         NEW_VERSION = '1.3.0'
-        SERVER_DOCKER_CREDS = credentials('server-docker-creds')
+    // SERVER_DOCKER_CREDS = credentials('server-docker-creds')
     }
 
     stages {
         stage('BUILD') {
             steps {
                 bat 'echo %SERVER_DOCKER_CREDS%'
-            // withCredentials([usernamePassword(credentialsId: 'server-docker-creds', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-            //     echo "Username: $USERNAME"
-            //     echo "Password: $PASSWORD"
-            // }
+                withCredentials([usernamePassword(credentialsId: 'server-docker-creds', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+                    echo "Username: $USERNAME"
+                    echo "Password: $PASSWORD"
+                    sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
+                }
             }
         }
         stage('BUILD IMAGE') {

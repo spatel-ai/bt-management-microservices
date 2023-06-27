@@ -6,7 +6,7 @@ pipeline {
     }
     environment {
         NEW_VERSION = '1.3.0'
-        SERVER_DOCKER_CREDS = credientials('server-docker-creds')
+        SERVER_DOCKER_CREDS = credentials('server-docker-creds')
     }
 
     stages {

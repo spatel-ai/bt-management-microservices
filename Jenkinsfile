@@ -6,7 +6,7 @@ pipeline {
     }
     environment {
         NEW_VERSION = '1.3.0'
-        DOCKER_CREDS = credentials('server-docker-creds')
+        SERVER_DOCKER_CREDS = credientials('server-docker-creds')
     }
 
     stages {
@@ -25,7 +25,7 @@ pipeline {
         stage('DEPLOY') {
             steps {
                 echo 'deploying the application'
-                sh "docker data ${DOCKER_CREDS}"
+                echo "docker data ${SERVER_DOCKER_CREDS}"
                 // sh 'chmod +x rename-images.sh && ./rename-images.sh'
             }
         }

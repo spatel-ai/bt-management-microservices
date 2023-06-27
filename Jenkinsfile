@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -7,17 +6,17 @@ pipeline {
     }
 
     stages {
-        stage('Which Java') {
+        stage('BUILD') {
             steps {
-                sh 'java --version'
+                sh 'chmod +x discard-images.sh && ./discard-images.sh'
             }
         }
         stage('BUILD IMAGE') {
             steps {
-                sh "ls -a"
-                sh "docker images"              
-                sh "docker ps -a"              
-                sh 'cd naming-server && ls -a && chmod +x mvnw && ./mvnw spring-boot:build-image -DskipTests -e && cd .. '
+                sh 'ls -a'
+                sh 'docker images'
+                sh 'chmod +x build-images.sh && ./build-images.sh'
+                sh 'chmod +x rename-images.sh && ./rename-images.sh'
             }
         }
         stage('DEPLOY') {

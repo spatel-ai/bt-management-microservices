@@ -35,7 +35,10 @@ pipeline {
         stage('BUILD') {
             steps {
                 // bat 'echo %SERVER_DOCKER_CREDS%'
-                echo "$AGENT_LABEL"
+                sh " echo Agent lable ${AGENT_LABEL}"
+                sh " echo Agent lable $AGENT_LABEL"
+                sh "echo Agent lable ${env}"
+                sh  "echo Agent lable $env"
                 withCredentials([usernamePassword(credentialsId: 'server-docker-creds', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
                     echo "Username: $USERNAME"
                     sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"

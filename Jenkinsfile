@@ -10,26 +10,31 @@ pipeline {
     }
 
     stages {
+        stage('PACKAGE') {
+            step {
+                sh "/usr/share/maven/bin/mvn package"
+            }
+        }
+        stage('COMPILE') {
+                withSonarQubeEnv("sonarqube"){
+                    sh "/usr/share/maven/bin/mvn sonar:sonar"
+                    sh 'cd naming-server && mvn clean verify sonar:sonar && cd ..'
+                }
+        }
         stage('BUILD') {
             steps {
-                // bat 'echo %SERVER_DOCKER_CREDS%'
-
                 sh 'cd naming-server && mvn clean verify sonar:sonar && cd ..'
             }
         }
         stage('BUILD IMAGE') {
             steps {
                 sh 'ls -a'
-            // sh 'docker images'
-            // sh "docker ps -a"
-            // sh 'chmod +x build-images.sh && ./build-images.sh'
             }
         }
         stage('DEPLOY') {
             steps {
                 echo 'deploying the application'
-            // echo "docker data ${SERVER_DOCKER_CREDS}"
-            // sh 'chmod +x rename-images.sh && ./rename-images.sh'
+     =
             }
         }
     }

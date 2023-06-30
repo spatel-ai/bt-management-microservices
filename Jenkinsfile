@@ -10,11 +10,6 @@ pipeline {
     }
 
     stages {
-        stage('PACKAGE') {
-            steps {
-                sh '/usr/share/maven/bin/mvn package'
-            }
-        }
         stage('COMPILE') {
             steps {
                 withSonarQubeEnv('sonarqube') {

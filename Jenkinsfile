@@ -13,16 +13,17 @@ pipeline {
         stage('BUILD') {
             steps {
                 // bat 'echo %SERVER_DOCKER_CREDS%'
-             
-                echo "Hellow world"
-                sh "mvn --version"
+
+                echo 'Hellow world'
+                sh 'mvn --version'
+                sh 'mvn clean verify sonar:sonar'
             }
         }
         stage('BUILD IMAGE') {
             steps {
                 sh 'ls -a'
-                // sh 'docker images'
-                // sh "docker ps -a"
+            // sh 'docker images'
+            // sh "docker ps -a"
             // sh 'chmod +x build-images.sh && ./build-images.sh'
             }
         }

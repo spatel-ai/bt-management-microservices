@@ -14,7 +14,7 @@ pipeline {
             steps {
                 // bat 'echo %SERVER_DOCKER_CREDS%'
 
-                sh 'cd support-service && mvn clean verify sonar:sonar && cd ..'
+                sh 'cd naming-server && mvn clean verify sonar:sonar && cd ..'
             }
         }
         stage('BUILD IMAGE') {

@@ -16,7 +16,9 @@ pipeline {
 
                 echo 'Hellow world'
                 sh 'mvn --version'
+                sh 'cd naming-server'
                 sh 'mvn clean verify sonar:sonar'
+                sh 'cd ..'
             }
         }
         stage('BUILD IMAGE') {

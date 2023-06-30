@@ -20,8 +20,8 @@ pipeline {
         stage('BUILD IMAGE') {
             steps {
                 sh 'ls -a'
-                sh 'docker images'
-                sh "docker ps -a"
+                // sh 'docker images'
+                // sh "docker ps -a"
             // sh 'chmod +x build-images.sh && ./build-images.sh'
             }
         }

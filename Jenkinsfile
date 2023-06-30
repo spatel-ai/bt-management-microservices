@@ -16,10 +16,12 @@ pipeline {
             }
         }
         stage('COMPILE') {
+            steps {
                 withSonarQubeEnv('sonarqube') {
                     sh '/usr/share/maven/bin/mvn sonar:sonar'
                     sh 'cd naming-server && mvn clean verify sonar:sonar && cd ..'
                 }
+            }
         }
         stage('BUILD') {
             steps {

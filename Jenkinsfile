@@ -20,7 +20,7 @@ pipeline {
                 sh 'ls -a'
                 sh 'mvn clean verify sonar:sonar'
                 sh 'cd ..'
-                sh 'ls -a 
+                sh 'ls -a'
             }
         }
         stage('BUILD IMAGE') {

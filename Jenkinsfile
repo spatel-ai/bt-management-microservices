@@ -11,13 +11,13 @@ pipeline {
 
     stages {
         stage('PACKAGE') {
-            step {
-                sh "/usr/share/maven/bin/mvn package"
+            steps {
+                sh '/usr/share/maven/bin/mvn package'
             }
         }
         stage('COMPILE') {
-                withSonarQubeEnv("sonarqube"){
-                    sh "/usr/share/maven/bin/mvn sonar:sonar"
+                withSonarQubeEnv('sonarqube') {
+                    sh '/usr/share/maven/bin/mvn sonar:sonar'
                     sh 'cd naming-server && mvn clean verify sonar:sonar && cd ..'
                 }
         }
@@ -34,7 +34,6 @@ pipeline {
         stage('DEPLOY') {
             steps {
                 echo 'deploying the application'
-     =
             }
         }
     }

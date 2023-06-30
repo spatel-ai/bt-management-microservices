@@ -15,7 +15,7 @@ pipeline {
                 // bat 'echo %SERVER_DOCKER_CREDS%'
              
                 echo "Hellow world"
-                echo "mvn --version"
+                sh "mvn --version"
             }
         }
         stage('BUILD IMAGE') {

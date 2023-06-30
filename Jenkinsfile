@@ -15,9 +15,9 @@ pipeline {
                 // bat 'echo %SERVER_DOCKER_CREDS%'
 
                 echo 'Hellow world'
-                sh 'mvn --version'
-                sh 'cd naming-server'
                 sh 'ls -a'
+                sh 'cd naming-server/'
+                sh 'ls'
                 sh 'mvn clean verify sonar:sonar'
                 sh 'cd ..'
                 sh 'ls -a'

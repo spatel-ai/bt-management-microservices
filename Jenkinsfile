@@ -14,13 +14,7 @@ pipeline {
             steps {
                 // bat 'echo %SERVER_DOCKER_CREDS%'
 
-                echo 'Hellow world'
-                sh 'ls -a'
-                sh 'cd naming-server/'
-                sh 'ls'
-                sh 'mvn clean verify sonar:sonar'
-                sh 'cd ..'
-                sh 'ls -a'
+                sh 'cd support-service && mvn clean verify sonar:sonar && cd ..'
             }
         }
         stage('BUILD IMAGE') {

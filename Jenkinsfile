@@ -1,25 +1,3 @@
-AGENT_LABEL = null
-
-node('master') {
-    stage('Set agent') {
-        if (scm.branches[0].name.matches('Development')) {
-            AGENT_LABEL = 'SECURE-API-DEV'
-            env = 'dev'
-     //ecr_repo = "securitization-dev"
-     }else if (scm.branches[0].name.matches('master')) {
-            AGENT_LABEL = 'SECURE-API-DEV'
-            env = 'uat'
-     //ecr_repo = "securitization-dev"
-     }else if (scm.branches[0].name.matches('Pre-Release-Phase2')) {
-            AGENT_LABEL = 'SECURE-API-UAT'
-            env = 'uat'
-     }else if (scm.branches[0].name.matches('Release')) {
-            AGENT_LABEL = 'SECURE-API-UAT'
-            env = 'uat'
-        }
-    }
-}
-
 pipeline {
     agent any
 
@@ -35,14 +13,8 @@ pipeline {
         stage('BUILD') {
             steps {
                 // bat 'echo %SERVER_DOCKER_CREDS%'
-                sh " echo Agent lable ${AGENT_LABEL}"
-                sh " echo Agent lable $AGENT_LABEL"
-                sh "echo Agent lable ${env}"
-                sh  "echo Agent lable $env"
-                withCredentials([usernamePassword(credentialsId: 'server-docker-creds', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                    echo "Username: $USERNAME"
-                    sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
-                }
+             
+                echo "Hellow world"
             }
         }
         stage('BUILD IMAGE') {

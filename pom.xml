@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.bt.management.microservices</groupId>
+    <artifactId>bt-management-microservices</artifactId>
+    <version>1.0.0</version>
+    <name>bt-management-microservices</name>
+    <description>Demo project for Spring Boot</description>
+    <modules>
+        <module>spring-cloud-gateway</module>
+        <module>naming-server</module>
+        <module>support-service</module>
+        <module>students-connect-service</module>
+        <module>horizons-service</module>
+        <module>authentication-service</module>
+        <module>config-server</module>
+    </modules>
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- Configuration for each microservice -->
+    <profiles>
+        <profile>
+            <id>spring-cloud-gateway</id>
+            <modules>
+                <module>spring-cloud-gateway</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>naming-server</id>
+            <modules>
+                <module>naming-server</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>support-service</id>
+            <modules>
+                <module>support-service</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>students-connect-service</id>
+            <modules>
+                <module>students-connect-service</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>horizons-service</id>
+            <modules>
+                <module>horizons-service</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>authentication-service</id>
+            <modules>
+                <module>authentication-service</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>config-server</id>
+            <modules>
+                <module>config-server</module>
+            </modules>
+        </profile>
+    </profiles>
+
+</project>

@@ -14,8 +14,6 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonarqube') {
                     sh 'cd naming-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
-                    sh 'cd naming-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
-                    sh 'cd naming-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
                 }
             }
         }

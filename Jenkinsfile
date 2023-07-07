@@ -15,6 +15,8 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonarqube-setup') {
                     sh 'cd naming-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
+                    sh 'cd config-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
+                    sh 'cd authentication-service &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
                 }
             }
         }

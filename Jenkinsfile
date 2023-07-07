@@ -1,7 +1,7 @@
 def AGENT_LABEL = null
 
 node('master') {
-    stage('Set agent') {
+    stage('Set agents') {
         echo"${scm.branches[0].name}"
         echo"${scm.branches[0]}"
         if (scm.branches[0].name.matches('Development')) {

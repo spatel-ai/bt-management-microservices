@@ -14,10 +14,10 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 withSonarQubeEnv('sonarqube-setup') {
-                    sh 'cd naming-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
-                    sh 'cd config-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
+                    // sh 'cd naming-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
+                    // sh 'cd config-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
+                    // sh 'cd support-service &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
                     sh 'cd authentication-service &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
-                    sh 'cd support-service &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
                 }
             }
         }

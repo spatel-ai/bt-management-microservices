@@ -24,7 +24,7 @@ pipeline {
         // }
         stage('BUILD IMAGE') {
             steps {
-                sh 'ls -a'
+                sh 'ls -a '
             }
         }
         stage('DEPLOY') {

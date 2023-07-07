@@ -3,7 +3,7 @@ def AGENT_LABEL = null
 node('master') {
     stage('Set agent') {
         echo"${scm.branches[0].name}"
-        if (scm.branches[0].name.matches('Development')) {
+        if (scm.branches[0].name.matches('*/Development')) {
             AGENT_LABEL = 'SECURE-API-DEV'
             echo 'its working fine bro'
      //ecr_repo = "securitization-dev"

@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Code Analysis') {
             steps {
-                withSonarQubeEnv('sonarqube') {
+                withSonarQubeEnv('sonarqube-setup') {
                     sh 'cd naming-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
                 }
             }

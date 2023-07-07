@@ -1,4 +1,4 @@
-node {
+node() {
     stage('Set agent') {
         if (scm.branches[0].name.matches('Development')) {
             sh 'mvn --version'

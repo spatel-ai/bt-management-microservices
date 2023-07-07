@@ -5,7 +5,7 @@ node('master') {
         echo"${scm.branches[0].name}"
         echo"${scm.branches[0]}"
         if (scm.branches[0].name.matches('Development')) {
-            AGENT_LABEL = 'SECURE-API-DEV'
+            AGENT_LABEL = 'SECURE-API-DEVs'
      }else if (scm.branches[0].name.matches('Pre-Dev-Phase2')) {
             AGENT_LABEL = 'SECURE-API-DE'
      }else if (scm.branches[0].name.matches('Pre-Release-Phase2')) {

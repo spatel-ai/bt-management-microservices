@@ -1,5 +1,7 @@
 node {
-    checkout scm
+    stage('TEST') {
+        echo'testing is done'
+    }
 }
 
 pipeline {

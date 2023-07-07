@@ -1,6 +1,18 @@
+def AGENT_LABEL = null
+
 node('master') {
-    stage('TEST') {
-        echo'testing is done'
+    stage('Set agent') {
+        if (scm.branches[0].name.matches('Development')) {
+            AGENT_LABEL = 'SECURE-API-DEV'
+     //ecr_repo = "securitization-dev"
+     }else if (scm.branches[0].name.matches('Pre-Dev-Phase2')) {
+            AGENT_LABEL = 'SECURE-API-DEV'
+     //ecr_repo = "securitization-dev"
+     }else if (scm.branches[0].name.matches('Pre-Release-Phase2')) {
+            AGENT_LABEL = 'SECURE-API-UAT'
+     }else if (scm.branches[0].name.matches('Release')) {
+            AGENT_LABEL = 'SECURE-API-UAT'
+        }
     }
 }
 
@@ -19,6 +31,7 @@ pipeline {
         stage('COMPILE') {
             steps {
                 withSonarQubeEnv('sonarqube-setup') {
+                    echo"${AGENT_LABEL}"
                     sh 'cd naming-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
                 }
             }

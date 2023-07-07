@@ -1,11 +1,11 @@
 def AGENT_LABEL = null
+def pattern = '/^\*/Development$/'
 
 node('master') {
     stage('Set agent') {
         echo"${scm.branches[0].name}"
-        echo"${scm.branches[0].name.matches('Development')}"
+        echo"${scm.branches[0].name.matches(pattern)}"
         echo"${scm.branches[0].name.matches('/Development')}"
-        echo"${scm.branches[0].name.matches('*/Development')}"
         echo"${scm.branches[0]}"
         if (scm.branches[0].name.matches('Development')) {
             AGENT_LABEL = 'SECURE-API-DEV'

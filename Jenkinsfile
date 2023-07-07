@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Deploy Images') {
             steps {
-                echo 'deploying the application'
+                echo 'deploying the application...'
             }
         }
     }

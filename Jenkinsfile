@@ -1,34 +1,44 @@
+node {
+    stage('Set agent') {
+        if (scm.branches[0].name.matches('Development')) {
+            sh 'mvn --version'
+     //ecr_repo = "securitization-dev"
+     }
+    }
+}
+
 pipeline {
     agent any
 
     tools {
         jdk 'Java17'
     }
+    environment {
+        NEW_VERSION = '1.3.0'
+    // SERVER_DOCKER_CREDS = credentials('server-docker-creds')
+    }
 
     stages {
-        stage('Compile') {
+        stage('COMPILE') {
             steps {
-                sh 'java --version'
-            }
-        }
-        stage('Code Analysis') {
-            steps {
-                withSonarQubeEnv('sonarqube-setup') {
-                    // sh 'cd naming-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
-                    // sh 'cd config-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
-                    // sh 'cd support-service &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
-                    sh 'cd authentication-service && mvn clean install &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
+                withSonarQubeEnv('sonarqube') {
+                    sh 'cd naming-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
                 }
             }
         }
-        stage('Build Images') {
+        // stage('BUILD') {
+        //     steps {
+        //         sh 'cd naming-server && mvn clean verify sonar:sonar && cd ..'
+        //     }
+        // }
+        stage('BUILD IMAGE') {
             steps {
                 sh 'ls -a '
             }
         }
-        stage('Deploy Images') {
+        stage('DEPLOY') {
             steps {
-                echo 'deploying the application...'
+                echo 'deploying the application'
             }
         }
     }

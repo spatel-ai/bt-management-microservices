@@ -1,5 +1,5 @@
 node {
-    echo 'hellow world'
+    checkout scm
 }
 
 pipeline {

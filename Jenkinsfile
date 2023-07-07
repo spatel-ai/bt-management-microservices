@@ -17,7 +17,7 @@ pipeline {
                     // sh 'cd naming-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
                     // sh 'cd config-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
                     // sh 'cd support-service &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
-                    sh 'cd authentication-service &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
+                    sh 'cd authentication-service && mvn clean install &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
                 }
             }
         }

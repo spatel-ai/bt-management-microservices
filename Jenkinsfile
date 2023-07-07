@@ -5,7 +5,7 @@ node('master') {
         echo"${scm.branches[0].name}"
         if (scm.branches[0].name.matches('*/Development')) {
             AGENT_LABEL = 'SECURE-API-DEV'
-            echo 'its working fine bro'
+            echo 'its working fine bros'
      //ecr_repo = "securitization-dev"
      }else if (scm.branches[0].name.matches('Pre-Dev-Phase2')) {
             AGENT_LABEL = 'SECURE-API-DEV'

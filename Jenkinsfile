@@ -2,7 +2,11 @@ def AGENT_LABEL = null
 
 node('master') {
     stage('Set agent') {
+        echo"${scm.branches[0].name}"
+        echo"${scm.branches[0].name.matches('Development')}"
         echo"${scm.branches[0].name.matches('/Development')}"
+        echo"${scm.branches[0].name.matches('*/Development')}"
+        echo"${scm.branches[0]}"
         if (scm.branches[0].name.matches('Development')) {
             AGENT_LABEL = 'SECURE-API-DEV'
             echo 'its working fine bros'

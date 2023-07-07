@@ -4,30 +4,26 @@ pipeline {
     tools {
         jdk 'Java17'
     }
-    environment {
-        NEW_VERSION = '1.3.0'
-    // SERVER_DOCKER_CREDS = credentials('server-docker-creds')
-    }
 
     stages {
-        stage('COMPILE') {
+        stage('Compile') {
+            steps {
+                sh 'java --version'
+            }
+        }
+        stage('Code Analysis') {
             steps {
                 withSonarQubeEnv('sonarqube') {
                     sh 'cd naming-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
                 }
             }
         }
-        // stage('BUILD') {
-        //     steps {
-        //         sh 'cd naming-server && mvn clean verify sonar:sonar && cd ..'
-        //     }
-        // }
-        stage('BUILD IMAGE') {
+        stage('Build Images') {
             steps {
                 sh 'ls -a '
             }
         }
-        stage('DEPLOY') {
+        stage('Deploy Images') {
             steps {
                 echo 'deploying the application'
             }

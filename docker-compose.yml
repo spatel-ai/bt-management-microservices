@@ -13,6 +13,7 @@ services:
     image: imshubhampatel/spring-cloud-gateway:0.0.1-SNAPSHOT
     ports:
       - 8765:8765
+    container_name: spring-cloud-gateway
     environment:
       - eureka.client.service-url.defaultZone=http://naming-server:8761/eureka
     restart: on-failure
@@ -36,6 +37,7 @@ services:
     image: imshubhampatel/config-server:0.0.1-SNAPSHOT
     ports:
       - 8763:8763
+    container_name: config-server
     environment:
       - eureka.client.service-url.defaultZone=http://naming-server:8761/eureka
     depends_on:
@@ -48,6 +50,7 @@ services:
     image: imshubhampatel/authentication-service:0.0.1-SNAPSHOT
     ports:
       - 8081:8081
+    container_name: authentication-service
     environment:
       - eureka.client.service-url.defaultZone=http://naming-server:8761/eureka
     depends_on:
@@ -63,6 +66,7 @@ services:
     image: imshubhampatel/horizons-service:0.0.1-SNAPSHOT
     ports:
       - 8082:8082
+    container_name: horizons-service
     environment:
       - eureka.client.service-url.defaultZone=http://naming-server:8761/eureka
     depends_on:
@@ -78,6 +82,7 @@ services:
     image: imshubhampatel/students-connect-service:0.0.1-SNAPSHOT
     ports:
       - 8083:8083
+    container_name: students-connect-service
     environment:
       - eureka.client.service-url.defaultZone=http://naming-server:8761/eureka
     depends_on:
@@ -93,6 +98,7 @@ services:
     image: imshubhampatel/support-service:0.0.1-SNAPSHOT
     ports:
       - 8084:8084
+    container_name: support-service
     environment:
       - eureka.client.service-url.defaultZone=http://naming-server:8761/eureka
     depends_on:

@@ -4,7 +4,6 @@ def res = 1
 node('master') {
     stage('checkout') {
         steps {
-            checkout scm
             lastCommit = sh([script: 'git log -1', returnStdout: true])
             echo "${lastCommit}"
         }

@@ -10,10 +10,23 @@ docker tag students-connect-service:0.0.1-SNAPSHOT imshubhampatel/students-conne
 docker tag spring-cloud-gateway:0.0.1-SNAPSHOT imshubhampatel/spring-cloud-gateway:0.0.1-SNAPSHOT
 
 echo "------------------------------------------------------------------------------------------------"
-echo "Started Image pushing Procedure"
+echo "Deleting old image Procedure"
 echo "------------------------------------------------------------------------------------------------"
 
 docker images
+docker rmi naming-server:0.0.1-SNAPSHOT
+docker rmi spring-cloud-gateway:0.0.1-SNAPSHOT
+docker rmi horizons-service:0.0.1-SNAPSHOT
+docker rmi support-service:0.0.1-SNAPSHOT
+docker rmi authentication-service:0.0.1-SNAPSHOT
+docker rmi students-connect-service:0.0.1-SNAPSHOT
+docker rmi config-server:0.0.1-SNAPSHOT
+docker images
+
+
+echo "------------------------------------------------------------------------------------------------"
+echo "Started Image pushing Procedure"
+echo "------------------------------------------------------------------------------------------------"
 
 docker push imshubhampatel/naming-server:0.0.1-SNAPSHOT
 docker push imshubhampatel/horizons-service:0.0.1-SNAPSHOT

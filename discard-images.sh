@@ -7,8 +7,6 @@ docker rmi support-service:0.0.1-SNAPSHOT
 docker rmi authentication-service:0.0.1-SNAPSHOT
 docker rmi students-connect-service:0.0.1-SNAPSHOT
 docker rmi config-server:0.0.1-SNAPSHOT
-docker rmi paketobuildpacks/builder:base
-docker rmi paketobuildpacks/run:base-cnb
 
 docker rmi imshubhampatel/naming-server:0.0.1-SNAPSHOT
 docker rmi imshubhampatel/spring-cloud-gateway:0.0.1-SNAPSHOT
@@ -17,6 +15,5 @@ docker rmi imshubhampatel/support-service:0.0.1-SNAPSHOT
 docker rmi imshubhampatel/authentication-service:0.0.1-SNAPSHOT
 docker rmi imshubhampatel/students-connect-service:0.0.1-SNAPSHOT
 docker rmi imshubhampatel/config-server:0.0.1-SNAPSHOT
-docker rmi imshubhampatel/paketobuildpacks/builder:base
-docker rmi imshubhampatel/paketobuildpacks/run:base-cnb
+
 docker images

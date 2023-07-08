@@ -66,7 +66,7 @@ pipeline {
         stage('DEPLOY') {
             steps {
                 script {
-                    def dockerCmd = 'docker run -p 8761:8761 imshubhampatel/naming-server:0.0.1-SNAPSHOT'
+                    def dockerCmd = 'docker run -p 8761:8761 -d imshubhampatel/naming-server:0.0.1-SNAPSHOT'
                     sshagent(['ec2-ubuntu-user']) {
                         echo 'Started Deploying Code to server'
                         echo"${AGENT_LABEL}"

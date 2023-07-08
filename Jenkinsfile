@@ -45,7 +45,7 @@ pipeline {
         stage('INCREMENT VERSIONS') {
             steps {
                 script {
-                    echo 'Build Image Step Started '
+                    echo 'Build Image  Step Started '
                     sh 'mvn --version'
                     echo 'Build Image Step Started '
                     sh 'chmod 777 ./version-increment.sh'

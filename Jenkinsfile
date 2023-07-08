@@ -65,7 +65,16 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'github-server-token', passwordVariable: 'PASS', usernameVariable:'USER')]) {
-                        echo "$USER"
+                        sh 'git config --global user.email jenkins@btirt.com'
+                        sh 'git config --global user.name jenkins'
+                        sh 'git config --list'
+                        sh 'ls -a'
+                        sh 'git branch'
+                        sh 'git status'
+                        sh "git remote set-url origin https://${USER}:${PASS}github.com/imshubhampatel/bt-management-microservices.git"
+                        sh 'git add .'
+                        sh "git commit -m 'cicd : version Bumb@${version}'"
+                        sh 'git push origin HEAD:Feature'
                     }
                 }
             }

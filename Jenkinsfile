@@ -1,7 +1,8 @@
 def AGENT_LABEL = null
+def res = 1
 
 node('master') {
-    stage('Configure Agent')
+    stage('CONFIGURE AGENTS')
      {
         if (scm.branches[0].name.matches('Development')) {
             AGENT_LABEL = 'SECURE-API-DEV'
@@ -20,7 +21,7 @@ node('master') {
             env = 'PROD'
      }
      }
-    stage('Validate Agent')
+    stage('VALIDATE AGENTS')
     {
         echo "${AGENT_LABEL}"
         echo "${env}"
@@ -40,37 +41,52 @@ pipeline {
     }
 
     stages {
-        stage('Clean Workspace')
+        stage('WORKSPACE CLEANING')
         {
             steps {
-                echo 'Cleaning Workspace...'
-                echo"${AGENT_LABEL}"
-                echo "${env}"
-            }
-        }
-
-        stage('CODE ANALYSIS') {
-            steps {
                 script {
-                        def dockerStatus = 1
-
-                    withSonarQubeEnv('sonarqube-setup') {
-                        echo 'cd naming-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
-                        sh 'chmod 777 ./analise-code.sh'
-                        dockerStatus = sh(script:'./analise-code.sh', returnStatus:true)
-                        echo "${dockerStatus}"
-                        if (dockerStatus != 0) {
-                            error 'Error in sonarqube file'
-                        }
+                    echo"${AGENT_LABEL}"
+                    echo "${env}"
+                    echo 'Cleaning Workspace...'
+                    sh 'chmod 777 ./discard-images.sh'
+                    res = sh(script:'./discard-images.sh', returnStatus:true)
+                    echo "${res}"
+                    if (res != 0) {
+                        error 'Error in clearing images and files ..........................................'
                     }
                 }
             }
         }
 
-        stage('BUILD IMAGE') {
+        stage('CODEBASE ANALYSIS') {
             steps {
-                echo 'Build Image Step Started '
-                echo 'Build Image Step Completed '
+                script {
+                        def dockerStatus = 1
+                    withSonarQubeEnv('sonarqube-setup') {
+                        sh 'chmod 777 ./analise-code.sh'
+                        dockerStatus = sh(script:'./analise-code.sh', returnStatus:true)
+                        echo "${dockerStatus}"
+                        if (dockerStatus != 0) {
+                            error 'Error in sonarqube file ..................................................'
+                        }
+                        echo 'Sonarqube scan was successfull'
+                    }
+                }
+            }
+        }
+
+        stage('BUILD IMAGES') {
+            steps {
+                script {
+                        echo 'Build Image Step Started '
+                        sh 'chmod 777 ./build-images.sh'
+                        dockerStatus = sh(script:'./build-images.sh', returnStatus:true)
+                        echo "${dockerStatus}"
+                        if (dockerStatus != 0) {
+                        error 'Error in sonarqube file...................................................'
+                        }
+                        echo 'Build Image Step Completed '
+                }
             }
         }
         stage('DEPLOY') {

@@ -83,11 +83,11 @@ pipeline {
                         sh 'git add .'
                         sh 'chmod 777 ./commit-bumb.sh'
                         echo "${version}"
-                    // sh "./commit-bumb.sh ${version}"
-                    // res = sh(script:"./commit-bumb.sh ${version}", returnStatus:true)
-                    // if (res != 0) {
-                    //     error 'Error in making commits of images and files ..........................................'
-                    // }
+                        sh "./commit-bumb.sh ${version}"
+                        res = sh(script:"./commit-bumb.sh ${version}", returnStatus:true)
+                        if (res != 0) {
+                            error 'Error in making commits of images and files ..........................................'
+                        }
                     }
                 }
             }

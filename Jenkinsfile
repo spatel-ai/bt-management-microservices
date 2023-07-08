@@ -47,9 +47,11 @@ pipeline {
                 script {
                     echo 'Build Image Step Started '
                     sh 'mvn --version'
-                    sh 'cd naming-server && mvn build-helper:parse-version versions:set \
-                     -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} \
-                      versions:commit'
+                    sh "chmod 777 ./version-increment.sh"
+                    sh "./version-increment.sh"
+                    // sh 'cd naming-server && mvn build-helper:parse-version versions:set \
+                    //  -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} \
+                    //   versions:commit'
                     // mvn build-helper:parse-version versions:set -DnewVersion=${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.nextIncrementalVersion} versions:commit
                     echo 'Build Image Step Completed '
                 }

@@ -45,7 +45,7 @@ pipeline {
         stage('checkout') {
             steps {
                 script {
-                    res = sh([script: 'git log -1', returnStdout: true])
+                    res = sh(script: 'git log -1 --pretty=%B', returnStdout: true)
                     echo "${res}"
                 }
             }

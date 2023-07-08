@@ -66,11 +66,12 @@ pipeline {
         stage('DEPLOY') {
             steps {
                 script {
+                    def dockerCmd = 'docker run -p 8761:8761 imshubhampatel/naming-server:0.0.1-SNAPSHOT'
                     sshagent(['ec2-ubuntu-user']) {
                         echo 'Started Deploying Code to server'
                         echo"${AGENT_LABEL}"
                         echo "${env}"
-                        sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.109.126.86'
+                        sh "ssh -o StrictHostKeyChecking=no ubuntu@3.109.126.86 ${dockerCmd}"
                     }
                 }
             }

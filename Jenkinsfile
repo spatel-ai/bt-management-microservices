@@ -2,6 +2,13 @@ def AGENT_LABEL = null
 def res = 1
 
 node('master') {
+    stage('checkout') {
+        steps {
+            checkout scm
+            lastCommit = sh([script: 'git log -1', returnStdout: true])
+            echo "${lastCommit}"
+        }
+    }
     stage('CONFIGURE AGENTS')
      {
         if (scm.branches[0].name.matches('Development')) {
@@ -76,10 +83,10 @@ pipeline {
                         sh 'chmod 777 ./commit-bumb.sh'
                         echo "${version}"
                         // sh "./commit-bumb.sh ${version}"
-                        res = sh(script:"./commit-bumb.sh ${version}", returnStatus:true)
-                        if (res != 0) {
-                            error 'Error in making commits of images and files ..........................................'
-                        }
+                        // res = sh(script:"./commit-bumb.sh ${version}", returnStatus:true)
+                        // if (res != 0) {
+                        //     error 'Error in making commits of images and files ..........................................'
+                        // }
                     }
                 }
             }

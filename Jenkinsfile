@@ -50,8 +50,8 @@ pipeline {
                     sh 'ls'
                     def dats = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
                     echo "${dats}"
-                    // sh 'mvn --version'
-                    // echo 'Build Image Step Started '
+                    sh 'mvn --version'
+                    echo 'Build Image Step Started '
                     // sh 'chmod 777 ./version-increment.sh'
                     // res = sh(script:'./version-increment.sh', returnStatus:true)
                     // if (res != 0) {

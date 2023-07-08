@@ -48,12 +48,12 @@ pipeline {
                     echo"${AGENT_LABEL}"
                     echo "${env}"
                     echo 'Cleaning Workspace...'
-                    // sh 'chmod 777 ./discard-images.sh'
-                    // res = sh(script:'./discard-images.sh', returnStatus:true)
-                    // echo "${res}"
-                    // if (res != 0) {
-                    //     error 'Error in clearing images and files ..........................................'
-                    // }
+                    sh 'chmod 777 ./discard-images.sh'
+                    res = sh(script:'./discard-images.sh', returnStatus:true)
+                    echo "${res}"
+                    if (res != 0) {
+                        error 'Error in clearing images and files ..........................................'
+                    }
                     echo 'Docker images scan deleted  successfully'
                 }
             }
@@ -107,12 +107,11 @@ pipeline {
         stage('DEPLOY IMAGES') {
             steps {
                 script {
-                    def dockerCmd = 'docker run -p 8761:8761 -d imshubhampatel/naming-server:0.0.1-SNAPSHOT'
+                    // def dockerCmd = 'docker run -p 8761:8761 -d imshubhampatel/naming-server:0.0.1-SNAPSHOT'
+                    def dockerComposeCmd = 'docker-compose -f docker-compose.yml --detach'
                     sshagent(['ec2-ubuntu-user']) {
-                        echo 'Started Deploying Code to server'
-                        echo"${AGENT_LABEL}"
-                        echo "${env}"
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@3.108.28.110 ${dockerCmd}"
+                        sh'scp docker-compose.yml ubuntu@3.108.28.110:/home/ubuntu'
+                        sh "ssh -o StrictHostKeyChecking=no ubuntu@3.108.28.110 ${dockerComposeCmd}"
                     }
                 }
             }

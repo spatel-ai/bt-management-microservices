@@ -35,7 +35,7 @@ pipeline {
 
     tools {
         jdk 'Java17'
-        mvn 'Maven-3'
+        maven 'Maven-3'
     }
     environment {
         NEW_VERSION = '1.3.0'

@@ -73,8 +73,7 @@ pipeline {
                         sh 'git status'
                         sh "git remote set-url origin https://imshubhampatel:${PASS}@github.com/imshubhampatel/bt-management-microservices.git"
                         sh 'git add .'
-                        sh 'chmod 777 ./commit-bumb.sh'
-                        sh "bash ./commit-bumb.sh ${version}"
+                        sh "./commit-bumb.sh ${version}"
                     }
                 }
             }

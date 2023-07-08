@@ -80,10 +80,10 @@ pipeline {
                 script {
                         echo 'Build Image Step Started '
                         sh 'chmod 777 ./build-images.sh'
-                        dockerStatus = sh(script:'./build-images.sh', returnStatus:true)
-                        echo "${dockerStatus}"
-                        if (dockerStatus != 0) {
-                        error 'Error in sonarqube file...................................................'
+                        res = sh(script:'./build-images.sh', returnStatus:true)
+                        echo "${res}"
+                        if (res != 0) {
+                        error 'Error in building image docker file...................................................'
                         }
                         echo 'Build Image Step Completed '
                 }

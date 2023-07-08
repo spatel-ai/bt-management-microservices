@@ -48,12 +48,12 @@ pipeline {
                     echo"${AGENT_LABEL}"
                     echo "${env}"
                     echo 'Cleaning Workspace...'
-                    sh 'chmod 777 ./discard-images.sh'
-                    res = sh(script:'./discard-images.sh', returnStatus:true)
-                    echo "${res}"
-                    if (res != 0) {
-                        error 'Error in clearing images and files ..........................................'
-                    }
+                    // sh 'chmod 777 ./discard-images.sh'
+                    // res = sh(script:'./discard-images.sh', returnStatus:true)
+                    // echo "${res}"
+                    // if (res != 0) {
+                    //     error 'Error in clearing images and files ..........................................'
+                    // }
                     echo 'Docker images scan deleted  successfully'
                 }
             }

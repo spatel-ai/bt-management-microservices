@@ -51,8 +51,18 @@ pipeline {
 
         stage('CODE ANALYSIS') {
             steps {
-                withSonarQubeEnv('sonarqube-setup') {
-                    echo 'cd naming-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
+                script {
+                        def dockerStatus = 1
+
+                    withSonarQubeEnv('sonarqube-setup') {
+                        echo 'cd naming-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
+                        sh 'chmod 777 ./analise-code.sh'
+                        dockerStatus = sh(script:'./analise-code.sh', returnStatus:true)
+                        echo "${dockerStatus}"
+                        if (dockerStatus != 0) {
+                            error 'Error in sonarqube file'
+                        }
+                    }
                 }
             }
         }

@@ -1,4 +1,4 @@
-def AGENT_LABEL = null
+// def AGENT_LABEL = null
 def res = 1
 
 // node('master') {
@@ -74,8 +74,8 @@ pipeline {
         stage('WORKSPACE CLEANING') {
             steps {
                 script {
-                    echo"${AGENT_LABEL}"
-                    echo "${env}"
+                    // echo"${AGENT_LABEL}"
+                    // echo "${env}"
                     echo 'Cleaning Workspace...'
                     sh 'chmod 777 ./discard-images.sh'
                     res = sh(script:'./discard-images.sh', returnStatus:true)

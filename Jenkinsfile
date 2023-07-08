@@ -73,29 +73,6 @@ pipeline {
             }
         }
 
-        stage('VERSION UPDATE') {
-            steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'github-server-token', passwordVariable: 'PASS', usernameVariable:'USER')]) {
-                        sh 'git config --global user.email jenkins@btirt.com'
-                        sh 'git config --global user.name jenkins'
-                        sh 'git config --list'
-                        sh 'ls -a'
-                        sh 'git branch '
-                        sh 'git status'
-                        sh "git remote set-url origin https://imshubhampatel:${PASS}@github.com/imshubhampatel/bt-management-microservices.git"
-                        sh 'git add .'
-                        sh 'chmod 777 ./commit-bumb.sh'
-                        echo "${version}"
-                        sh "./commit-bumb.sh ${version}"
-                        res = sh(script:"./commit-bumb.sh ${version}", returnStatus:true)
-                        if (res != 0) {
-                            error 'Error in making commits of images and files ..........................................'
-                        }
-                    }
-                }
-            }
-        }
         stage('WORKSPACE CLEANING') {
             steps {
                 script {
@@ -155,6 +132,30 @@ pipeline {
                         error 'Error in pushing image docker file..................................................'
                     }
                     echo 'Pushing Images Step  is Completed... '
+                }
+            }
+        }
+
+        stage('VERSION UPDATE') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'github-server-token', passwordVariable: 'PASS', usernameVariable:'USER')]) {
+                        sh 'git config --global user.email jenkins@btirt.com'
+                        sh 'git config --global user.name jenkins'
+                        sh 'git config --list'
+                        sh 'ls -a'
+                        sh 'git branch '
+                        sh 'git status'
+                        sh "git remote set-url origin https://imshubhampatel:${PASS}@github.com/imshubhampatel/bt-management-microservices.git"
+                        sh 'git add .'
+                        sh 'chmod 777 ./commit-bumb.sh'
+                        echo "${version}"
+                        sh "./commit-bumb.sh ${version}"
+                        res = sh(script:"./commit-bumb.sh ${version}", returnStatus:true)
+                        if (res != 0) {
+                            error 'Error in making commits of images and files ..........................................'
+                        }
+                    }
                 }
             }
         }

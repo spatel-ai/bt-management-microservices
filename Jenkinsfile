@@ -47,6 +47,11 @@ pipeline {
                 script {
                     res = sh(script: 'git log -1 --pretty=%B', returnStdout: true)
                     echo "${res}"
+                    if (res.contains('[versioning skip]')) {
+                        echo 'Build can be start...'
+                    } else {
+                        echo "Build Can't be start..."
+                    }
                 }
             }
         }

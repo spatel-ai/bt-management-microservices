@@ -48,8 +48,8 @@ pipeline {
                     echo 'Versoning step  Image  Step Started '
                     sh 'cd naming-server'
                     sh 'ls'
-                    def dats = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
-                    echo "${dats}"
+                    def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                    echo "${matcher[0]}"
                     sh 'mvn --version'
                     echo 'Build Image Step Started '
                     // sh 'chmod 777 ./version-increment.sh'

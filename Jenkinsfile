@@ -142,7 +142,7 @@ pipeline {
                         sh 'git config --global user.name jenkins'
                         sh 'git config --list'
                         sh 'ls -a'
-                        sh 'git branch '
+                        sh 'git branch'
                         sh 'git status'
                         sh "git remote set-url origin https://imshubhampatel:${PASS}@github.com/imshubhampatel/bt-management-microservices.git"
                         sh 'git add .'

@@ -54,8 +54,9 @@ pipeline {
 
                     echo 'Versoning step Image Step Completed'
                     def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
-                    env.version = matcher[0][1]
-                    echo "${env.version}"
+                    def version =  matcher[0][1]
+                    env.IMAGE_NAME = version
+                    echo "${IMAGE_NAME}"
                     echo 'Build Image Step Started '
                 }
             }

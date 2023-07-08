@@ -46,14 +46,11 @@ pipeline {
             steps {
                 script {
                     res = sh(script: 'git log -1 --pretty=%B', returnStdout: true)
-                    echo '-----------------'
                     echo "response ${res}"
-                    echo '-----------------'
                     if (res.contains('[versioning skip]')) {
-                        echo 'Build can not be start...'
-                    } else {
-                        echo 'Build Can be start...'
+                        error 'Jenkins CICD Module Detected to build...'
                     }
+                    echo 'checkout was successfull'
                 }
             }
         }

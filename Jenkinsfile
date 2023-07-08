@@ -46,19 +46,17 @@ pipeline {
             steps {
                 script {
                     echo 'Versoning step  Image  Step Started '
-                    sh 'cd naming-server'
-                    sh 'ls'
-                    def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
-                    echo "${matcher[0][1]}"
-                    sh 'mvn --version'
-                    echo 'Build Image Step Started '
-                    // sh 'chmod 777 ./version-increment.sh'
-                    // res = sh(script:'./version-increment.sh', returnStatus:true)
-                    // if (res != 0) {
-                    //     error 'Error in versoning images and files ..........................................'
-                    // }
+                    sh 'chmod 777 ./version-increment.sh'
+                    res = sh(script:'./version-increment.sh', returnStatus:true)
+                    if (res != 0) {
+                        error 'Error in versoning images and files ..........................................'
+                    }
 
-                // echo 'Versoning step Image Step Completed'
+                    echo 'Versoning step Image Step Completed'
+                    def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                    def version = matcher[0][1]
+                    echo "${version}"
+                    echo 'Build Image Step Started '
                 }
             }
         }

@@ -64,7 +64,7 @@ pipeline {
         stage('COMMIT VERSION UPDATE') {
             steps {
                 script {
-                    withCredentials([usernameColonPassword(credentialsId: 'github-server-token', passwordVariable: 'PASS', usernameVariable:'USER')]) {
+                    withCredentials([usernamePassword(credentialsId: 'github-server-token', passwordVariable: 'PASS', usernameVariable:'USER')]) {
                         echo "$USER"
                     }
                 }

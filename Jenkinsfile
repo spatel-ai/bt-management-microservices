@@ -1,37 +1,35 @@
 def AGENT_LABEL = null
 def res = 1
 
-node('master') {
-    stage('CONFIGURE AGENTS')
-     {
-        if (scm.branches[0].name.matches('Development')) {
-            AGENT_LABEL = 'SECURE-API-DEV'
-            env = 'DEV'
-        }
-     else if (scm.branches[0].name.matches('Pre-Release')) {
-            AGENT_LABEL = 'SECURE-API-UAT'
-            env = 'UAT'
-     }
-     else if (scm.branches[0].name.matches('Feature')) {
-            AGENT_LABEL = 'SECURE-API-DEV'
-            env = 'UAT'
-     }
-     else if (scm.branches[0].name.matches('Release')) {
-            AGENT_LABEL = 'SECURE-API-RELEASE'
-            env = 'PROD'
-     }
-     }
-    stage('VALIDATE AGENTS')
-    {
-        echo "${AGENT_LABEL}"
-        echo "${env}"
-    }
-}
+// node('master') {
+//     stage('CONFIGURE AGENTS')
+//      {
+//         if (scm.branches[0].name.matches('Development')) {
+//             AGENT_LABEL = 'SECURE-API-DEV'
+//             env = 'DEV'
+//         }
+//      else if (scm.branches[0].name.matches('Pre-Release')) {
+//             AGENT_LABEL = 'SECURE-API-UAT'
+//             env = 'UAT'
+//      }
+//      else if (scm.branches[0].name.matches('Feature')) {
+//             AGENT_LABEL = 'SECURE-API-DEV'
+//             env = 'UAT'
+//      }
+//      else if (scm.branches[0].name.matches('Release')) {
+//             AGENT_LABEL = 'SECURE-API-RELEASE'
+//             env = 'PROD'
+//      }
+//      }
+//     stage('VALIDATE AGENTS')
+//     {
+//         echo "${AGENT_LABEL}"
+//         echo "${env}"
+//     }
+// }
 
 pipeline {
-    agent {
-        label "${AGENT_LABEL}"
-    }
+    agent any
 
     tools {
         jdk 'Java17'

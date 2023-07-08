@@ -73,7 +73,7 @@ pipeline {
                         sh 'git status'
                         sh "git remote set-url origin https://${USER}:${PASS}github.com/imshubhampatel/bt-management-microservices.git"
                         sh 'git add .'
-                        sh "git commit -m \"cicd : version Bumb@${version}\""
+                        sh 'git commit -m "cicd : version Bumb"'
                         sh 'git log'
                         sh 'git push origin HEAD:Feature'
                         echo 'Work Completed'

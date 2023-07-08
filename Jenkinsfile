@@ -79,6 +79,7 @@ pipeline {
         stage('Increment') {
             steps {
                 echo 'Build Image Step Started '
+                sh 'mvn --version'
                 sh "cd naming-server && ls -a &&  mvn build-helper:parse-version version:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit"
                 echo 'Build Image Step Completed '
             }

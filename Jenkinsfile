@@ -1,38 +1,39 @@
-// def AGENT_LABEL = null
+def AGENT_LABEL = null
 def res = 1
 
-// node('master') {
-//     stage('CONFIGURE AGENTS')
-//      {
-//         if (scm.branches[0].name.matches('Development')) {
-//             AGENT_LABEL = 'SECURE-API-DEV'
-//             env = 'DEV'
-//         }
-//      else if (scm.branches[0].name.matches('Pre-Release')) {
-//             AGENT_LABEL = 'SECURE-API-UAT'
-//             env = 'UAT'
-//      }
-//      else if (scm.branches[0].name.matches('Feature')) {
-//             AGENT_LABEL = 'SECURE-API-DEV'
-//             env = 'UAT'
-//      }
-//      else if (scm.branches[0].name.matches('Release')) {
-//             AGENT_LABEL = 'SECURE-API-RELEASE'
-//             env = 'PROD'
-//      }
-//      }
-//     stage('VALIDATE AGENTS')
-//     {
-//         echo "${AGENT_LABEL}"
-//         echo "${env}"
-//     }
-// }
+node('master') {
+    stage('CONFIGURE AGENTS')
+     {
+        if (scm.branches[0].name.matches('Development')) {
+            AGENT_LABEL = 'SECURE-API-DEV'
+            env = 'DEV'
+        }
+     else if (scm.branches[0].name.matches('Pre-Release')) {
+            AGENT_LABEL = 'SECURE-API-UAT'
+            env = 'UAT'
+     }
+     else if (scm.branches[0].name.matches('Feature')) {
+            AGENT_LABEL = 'SECURE-API-DEV'
+            env = 'UAT'
+     }
+     else if (scm.branches[0].name.matches('Release')) {
+            AGENT_LABEL = 'SECURE-API-RELEASE'
+            env = 'PROD'
+     }
+     }
+    stage('VALIDATE AGENTS')
+    {
+        echo "${AGENT_LABEL}"
+        echo "${env}"
+    }
+}
 
 pipeline {
-    agent any
+    agent {
+        label "${AGENT_LABEL}"
+    }
 
     tools {
-        jdk 'Java17'
         maven 'Maven-3'
     }
     environment {
@@ -74,8 +75,8 @@ pipeline {
         stage('WORKSPACE CLEANING') {
             steps {
                 script {
-                    // echo"${AGENT_LABEL}"
-                    // echo "${env}"
+                    echo"${AGENT_LABEL}"
+                    echo "${env}"
                     echo 'Cleaning Workspace...'
                     sh 'chmod 777 ./discard-images.sh'
                     res = sh(script:'./discard-images.sh', returnStatus:true)
@@ -142,7 +143,7 @@ pipeline {
                         sh 'git config --global user.name jenkins'
                         sh 'git config --list'
                         sh 'ls -a'
-                        sh 'git branch'
+                        sh 'git branch '
                         sh 'git status'
                         sh "git remote set-url origin https://imshubhampatel:${PASS}@github.com/imshubhampatel/bt-management-microservices.git"
                         sh 'git add .'

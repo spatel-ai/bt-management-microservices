@@ -49,7 +49,7 @@ pipeline {
                     sh 'cd naming-server'
                     sh 'ls'
                     def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
-                    echo "${matcher[0]}"
+                    echo "${matcher[0][1]}"
                     sh 'mvn --version'
                     echo 'Build Image Step Started '
                     // sh 'chmod 777 ./version-increment.sh'

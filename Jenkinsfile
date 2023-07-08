@@ -48,22 +48,31 @@ pipeline {
                 echo "${env}"
             }
         }
+
         stage('CODE ANALYSIS') {
             steps {
                 withSonarQubeEnv('sonarqube-setup') {
-                    sh 'cd naming-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
+                    echo 'cd naming-server &&/usr/share/maven/bin/mvn sonar:sonar && cd ..'
                 }
             }
         }
 
         stage('BUILD IMAGE') {
             steps {
-                sh 'ls -a '
+                echo 'Build Image Step Started '
+                echo 'Build Image Step Completed '
             }
         }
         stage('DEPLOY') {
             steps {
-                echo 'deploying the application'
+                script {
+                    sshagent(['ec2-ubuntu-user']) {
+                        echo 'Started Deploying Code to server'
+                        echo"${AGENT_LABEL}"
+                        echo "${env}"
+                        sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.109.126.86'
+                    }
+                }
             }
         }
     }

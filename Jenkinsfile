@@ -98,7 +98,7 @@ pipeline {
                         res = sh(script:'./rename-images.sh', returnStatus:true)
                         echo "${res}"
                         if (res != 0) {
-                        error 'Error in pushing image docker file...................................................'
+                        error 'Error in pushing image docker file..................................................'
                         }
                         echo 'Pushing Images Step  is Completed... '
                 }

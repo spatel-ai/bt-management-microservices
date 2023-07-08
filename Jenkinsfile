@@ -4,8 +4,8 @@ def res = 1
 node('master') {
     stage('checkout') {
         steps {
-            lastCommit = sh([script: 'git log -1', returnStdout: true])
-            echo "${lastCommit}"
+            res = sh(script: 'git log -1', returnStdout: true)
+            echo "${res}"
         }
     }
     stage('CONFIGURE AGENTS')

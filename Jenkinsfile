@@ -89,7 +89,21 @@ pipeline {
                 }
             }
         }
-        stage('DEPLOY') {
+        stage('PUSHING IMAGES') {
+            steps {
+                script {
+                        echo 'Build Image Step Started '
+                        sh 'chmod 777 ./rename-images.sh'
+                        res = sh(script:'./rename-images.sh', returnStatus:true)
+                        echo "${res}"
+                        if (res != 0) {
+                        error 'Error in pushing image docker file...................................................'
+                        }
+                        echo 'Pushing Images Step  is Completed '
+                }
+            }
+        }
+        stage('DEPLOY IMAGES') {
             steps {
                 script {
                     def dockerCmd = 'docker run -p 8761:8761 -d imshubhampatel/naming-server:0.0.1-SNAPSHOT'

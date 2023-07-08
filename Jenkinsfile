@@ -71,7 +71,7 @@ pipeline {
                         echo 'Started Deploying Code to server'
                         echo"${AGENT_LABEL}"
                         echo "${env}"
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@3.110.189.167 ${dockerCmd}"
+                        sh "ssh -o StrictHostKeyChecking=no ubuntu@ubuntu@ec2-3-110-189-167.ap-south-1.compute.amazonaws.com ${dockerCmd}"
                     }
                 }
             }

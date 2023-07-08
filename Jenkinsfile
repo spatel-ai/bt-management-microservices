@@ -60,6 +60,16 @@ pipeline {
                 }
             }
         }
+
+        stage('COMMIT VERSION UPDATE') {
+            steps {
+                script {
+                    withCredentials([usernameColonPassword(credentialsId: 'github-server-token', passwordVariable: 'PASS', usernameVariable:'USER')]) {
+                        echo "$USER"
+                    }
+                }
+            }
+        }
         stage('WORKSPACE CLEANING') {
             steps {
                 script {
@@ -122,6 +132,7 @@ pipeline {
                 }
             }
         }
+
         stage('DEPLOY IMAGES') {
             steps {
                 script {

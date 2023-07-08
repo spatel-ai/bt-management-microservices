@@ -10,6 +10,6 @@ public class SupportController {
 
   @GetMapping("/")
   public String getSupport() {
-    return "<h1> Calling from Support Service</h1>";
+    return "<h1> Calling from Support Service \n we are ready for helping others</h1>";
   }
 }

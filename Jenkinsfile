@@ -41,76 +41,78 @@ pipeline {
     }
 
     stages {
-        // stage('WORKSPACE CLEANING') {
-        //     steps {
-        //         script {
-        //             echo"${AGENT_LABEL}"
-        //             echo "${env}"
-        //             echo 'Cleaning Workspace...'
-        //             sh 'chmod 777 ./discard-images.sh'
-        //             res = sh(script:'./discard-images.sh', returnStatus:true)
-        //             echo "${res}"
-        //             if (res != 0) {
-        //                 error 'Error in clearing images and files ..........................................'
-        //             }
-        //             echo 'Docker images scan deleted  successfully'
-        //         }
-        //     }
-        // }
+        stage('WORKSPACE CLEANING') {
+            steps {
+                script {
+                    echo"${AGENT_LABEL}"
+                    echo "${env}"
+                    echo 'Cleaning Workspace...'
+                    sh 'chmod 777 ./discard-images.sh'
+                    res = sh(script:'./discard-images.sh', returnStatus:true)
+                    echo "${res}"
+                    if (res != 0) {
+                        error 'Error in clearing images and files ..........................................'
+                    }
+                    echo 'Docker images scan deleted  successfully'
+                }
+            }
+        }
 
-        // stage('CODEBASE ANALYSIS') {
-        //     steps {
-        //         script {
-        //                 def dockerStatus = 1
-        //             withSonarQubeEnv('sonarqube-setup') {
-        //                 sh 'chmod 777 ./analise-code.sh'
-        //                 dockerStatus = sh(script:'./analise-code.sh', returnStatus:true)
-        //                 echo "${dockerStatus}"
-        //                 if (dockerStatus != 0) {
-        //                     error 'Error in sonarqube file ..................................................'
-        //                 }
-        //                 echo 'Sonarqube scan was successfull'
-        //             }
-        //         }
-        //     }
-        // }
+        stage('CODEBASE ANALYSIS') {
+            steps {
+                script {
+                        def dockerStatus = 1
+                    withSonarQubeEnv('sonarqube-setup') {
+                        sh 'chmod 777 ./analise-code.sh'
+                        dockerStatus = sh(script:'./analise-code.sh', returnStatus:true)
+                        echo "${dockerStatus}"
+                        if (dockerStatus != 0) {
+                            error 'Error in sonarqube file ..................................................'
+                        }
+                        echo 'Sonarqube scan was successfull'
+                    }
+                }
+            }
+        }
 
-        // stage('BUILD IMAGES') {
-        //     steps {
-        //         script {
-        //                 echo 'Build Image Step Started '
-        //                 sh 'chmod 777 ./build-images.sh'
-        //                 res = sh(script:'./build-images.sh', returnStatus:true)
-        //                 echo "${res}"
-        //                 if (res != 0) {
-        //                 error 'Error in building image docker file...................................................'
-        //                 }
-        //                 echo 'Build Image Step Completed '
-        //         }
-        //     }
-        // }
-        // stage('PUSHING IMAGES') {
-        //     steps {
-        //         script {
-        //                 echo 'Build Image Step Started...'
-        //                 sh 'chmod 777 ./rename-images.sh'
-        //                 res = sh(script:'./rename-images.sh', returnStatus:true)
-        //                 echo "${res}"
-        //                 if (res != 0) {
-        //                 error 'Error in pushing image docker file..................................................'
-        //                 }
-        //                 echo 'Pushing Images Step  is Completed... '
-        //         }
-        //     }
-        // }
+        stage('BUILD IMAGES') {
+            steps {
+                script {
+                        echo 'Build Image Step Started '
+                        sh 'chmod 777 ./build-images.sh'
+                        res = sh(script:'./build-images.sh', returnStatus:true)
+                        echo "${res}"
+                        if (res != 0) {
+                        error 'Error in building image docker file...................................................'
+                        }
+                        echo 'Build Image Step Completed '
+                }
+            }
+        }
+        stage('PUSHING IMAGES') {
+            steps {
+                script {
+                        echo 'Build Image Step Started...'
+                        sh 'chmod 777 ./rename-images.sh'
+                        res = sh(script:'./rename-images.sh', returnStatus:true)
+                        echo "${res}"
+                        if (res != 0) {
+                        error 'Error in pushing image docker file..................................................'
+                        }
+                        echo 'Pushing Images Step  is Completed... '
+                }
+            }
+        }
         stage('DEPLOY IMAGES') {
             steps {
                 script {
                     // def dockerCmd = 'docker run -p 8761:8761 -d imshubhampatel/naming-server:0.0.1-SNAPSHOT'
-                    def dockerComposeCmd = 'docker-compose -f docker-compose.yml up --detach'
+                    // def dockerComposeCmd = 'docker-compose -f docker-compose.yml up --detach'
+                    def serverCmd = 'bash ./server-cmds.sh'
                     sshagent(['ec2-ubuntu-user']) {
-                        sh'scp docker-compose.yml ubuntu@3.108.28.110:/home/ubuntu'
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@3.108.28.110 ${dockerComposeCmd}"
+                        sh 'scp server-cmds.sh ubuntu@3.108.28.110:/home/ubuntu'
+                        sh 'scp docker-compose.yml ubuntu@3.108.28.110:/home/ubuntu'
+                        sh "ssh -o StrictHostKeyChecking=no ubuntu@3.108.28.110 ${serverCmd}"
                     }
                 }
             }

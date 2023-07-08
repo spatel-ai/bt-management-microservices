@@ -42,6 +42,24 @@ pipeline {
     }
 
     stages {
+        stage('INCREMENT VERSIONS') {
+            steps {
+                script {
+                    echo 'Versoning step  Image  Step Started '
+                    sh 'cd naming-server'
+                    sh 'ls'
+                    // sh 'mvn --version'
+                    // echo 'Build Image Step Started '
+                    // sh 'chmod 777 ./version-increment.sh'
+                    // res = sh(script:'./version-increment.sh', returnStatus:true)
+                    // if (res != 0) {
+                    //     error 'Error in versoning images and files ..........................................'
+                    // }
+
+                // echo 'Versoning step Image Step Completed'
+                }
+            }
+        }
         stage('WORKSPACE CLEANING') {
             steps {
                 script {
@@ -72,25 +90,6 @@ pipeline {
                         }
                         echo 'Sonarqube scan was successfull'
                     }
-                }
-            }
-        }
-
-        stage('INCREMENT VERSIONS') {
-            steps {
-                script {
-                    echo 'Versoning step  Image  Step Started '
-                    sh 'cd naming-server'
-                    sh 'ls'
-                    // sh 'mvn --version'
-                    // echo 'Build Image Step Started '
-                    // sh 'chmod 777 ./version-increment.sh'
-                    // res = sh(script:'./version-increment.sh', returnStatus:true)
-                    // if (res != 0) {
-                    //     error 'Error in versoning images and files ..........................................'
-                    // }
-
-                // echo 'Versoning step Image Step Completed'
                 }
             }
         }

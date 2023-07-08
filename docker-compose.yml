@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   naming-server:
-    image: imshubhampatel/naming-server:0.0.1-SNAPSHOT
+    image: imshubhampatel/naming-server:${version}
     ports:
       - 8761:8761
     container_name: naming-server
@@ -10,7 +10,7 @@ services:
       test: "exit 0"
 
   spring-cloud-gateway:
-    image: imshubhampatel/spring-cloud-gateway:0.0.1-SNAPSHOT
+    image: imshubhampatel/spring-cloud-gateway:${version}
     ports:
       - 8765:8765
     container_name: spring-cloud-gateway
@@ -34,7 +34,7 @@ services:
         condition: service_healthy
 
   config-server:
-    image: imshubhampatel/config-server:0.0.1-SNAPSHOT
+    image: imshubhampatel/config-server:${version}
     ports:
       - 8763:8763
     container_name: config-server
@@ -47,7 +47,7 @@ services:
       test: "exit 0"
 
   authentication-service:
-    image: imshubhampatel/authentication-service:0.0.1-SNAPSHOT
+    image: imshubhampatel/authentication-service:${version}
     ports:
       - 8081:8081
     container_name: authentication-service
@@ -63,7 +63,7 @@ services:
     restart: on-failure
 
   horizons-service:
-    image: imshubhampatel/horizons-service:0.0.1-SNAPSHOT
+    image: imshubhampatel/horizons-service:${version}
     ports:
       - 8082:8082
     container_name: horizons-service
@@ -79,7 +79,7 @@ services:
     restart: on-failure
 
   students-connect-service:
-    image: imshubhampatel/students-connect-service:0.0.1-SNAPSHOT
+    image: imshubhampatel/students-connect-service:${version}
     ports:
       - 8083:8083
     container_name: students-connect-service
@@ -95,7 +95,7 @@ services:
     restart: on-failure
 
   support-service:
-    image: imshubhampatel/support-service:0.0.1-SNAPSHOT
+    image: imshubhampatel/support-service:${version}
     ports:
       - 8084:8084
     container_name: support-service

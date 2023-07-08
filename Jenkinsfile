@@ -149,7 +149,7 @@ pipeline {
                 script {
                     echo 'Build Image Step Started...'
                     sh 'chmod 777 ./rename-images.sh'
-                    res = sh(script:'./rename-images.sh', returnStatus:true)
+                    res = sh(script:"./rename-images.sh ${version}", returnStatus:true)
                     echo "${res}"
                     if (res != 0) {
                         error 'Error in pushing image docker file..................................................'
@@ -162,14 +162,17 @@ pipeline {
         stage('DEPLOY IMAGES') {
             steps {
                 script {
-                    // def dockerCmd = 'docker run -p 8761:8761 -d imshubhampatel/naming-server:0.0.1-SNAPSHOT'
-                    // def dockerComposeCmd = 'docker-compose -f docker-compose.yml up --detach'
-                    def serverCmd = 'bash ./server-cmds.sh'
+                    def serverCmd = "bash ./server-cmds.sh ${version}"
                     sshagent(['ec2-ubuntu-user']) {
                         sh 'scp server-cmds.sh ubuntu@3.108.28.110:/home/ubuntu'
                         sh 'scp docker-compose.yml ubuntu@3.108.28.110:/home/ubuntu'
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@3.108.28.110 ${serverCmd}"
                     }
+                    sh 'sudo docker system prune -f'
+                    sh 'du -d 1 /var/jenkins_home/workspace \
+                        | sort -n -r \
+                        | head -n 10 \
+                        | xargs -I {} rm -rf /var/jenkins_home/workspace/{}'
                 }
             }
         }

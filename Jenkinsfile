@@ -81,6 +81,7 @@ pipeline {
                 script {
                     echo 'Build Image Step Started '
                     sh 'mvn --version'
+                    echo "${env.BUILD_NUMBER}"
                     sh 'cd naming-server && mvn  install && mvn build-helper:parse-version versions:set -DnewVersion=${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.nextIncrementalVersion} versions:commit'
                     // mvn build-helper:parse-version versions:set -DnewVersion=${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.nextIncrementalVersion} versions:commit
                     echo 'Build Image Step Completed '

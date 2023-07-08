@@ -54,6 +54,7 @@ pipeline {
                     if (res != 0) {
                         error 'Error in clearing images and files ..........................................'
                     }
+                    echo 'Docker images scan deleted  successfully'
                 }
             }
         }
@@ -92,14 +93,14 @@ pipeline {
         stage('PUSHING IMAGES') {
             steps {
                 script {
-                        echo 'Build Image Step Started '
+                        echo 'Build Image Step Started...'
                         sh 'chmod 777 ./rename-images.sh'
                         res = sh(script:'./rename-images.sh', returnStatus:true)
                         echo "${res}"
                         if (res != 0) {
                         error 'Error in pushing image docker file...................................................'
                         }
-                        echo 'Pushing Images Step  is Completed '
+                        echo 'Pushing Images Step  is Completed... '
                 }
             }
         }

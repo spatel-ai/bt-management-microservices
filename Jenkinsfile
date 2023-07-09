@@ -176,11 +176,11 @@ pipeline {
                 }
             }
         }
-        /*** workspace clean up*/
+    }
+    /*** workspace clean up*/
         post {
             always {
                 cleanWs()
             }
         }
-    }
 }

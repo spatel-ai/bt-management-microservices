@@ -59,9 +59,10 @@ pipeline {
         stage('INCREMENT VERSIONS') {
             steps {
                 script {
-                    echo 'Versoning step  Image  Step Started '
-                
                     echo 'Versoning step Image Step Completed'
+                    // def match = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                    // OLD_VERSION =  match[0][1]
+                    // echo "OLD is here Version ${OLD_VERSION}"
                     sh 'chmod 777 ./version-increment.sh'
                     res = sh(script:'./version-increment.sh', returnStatus:true)
                     sh 'java --version'

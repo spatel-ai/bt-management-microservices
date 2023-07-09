@@ -163,7 +163,8 @@ pipeline {
         stage('DEPLOY IMAGES') {
             steps {
                 script {
-                    def serverCmd = 'bash ./server-cmds.sh 0.0.3'
+                    def version = 0.0.3
+                    def serverCmd = "bash ./server-cmds.sh ${version}"
                     sshagent(['ec2-user']) {
                         sh 'scp server-cmds.sh ubuntu@3.108.28.110:/home/ubuntu'
                         sh 'scp docker-compose.yml ubuntu@3.108.28.110:/home/ubuntu'

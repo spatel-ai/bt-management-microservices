@@ -1,4 +1,4 @@
-export version=$1
-echo "${version}"
+export VERSION=$1
+echo "${VERSION}"
 sudo docker-compose -f docker-compose.yml up --detach
 echo "Success"

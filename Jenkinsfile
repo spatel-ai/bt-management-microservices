@@ -138,7 +138,7 @@ pipeline {
         stage('DEPLOY IMAGES') {
             steps {
                 script {
-                    // def serverCmd = "bash ./server-cmds.sh ${VERSION}"
+                    def serverCmd = 'bash ./server-cmds.sh'
                     sshagent(['ec2-user']) {
                         sh 'chmod 777 ./helpCmd.sh'
                         sh 'docker images'

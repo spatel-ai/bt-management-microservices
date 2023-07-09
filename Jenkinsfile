@@ -20,7 +20,7 @@ pipeline {
                     sh 'chmod 777 ./version-increment.sh'
                     res = sh(script:'./version-increment.sh', returnStatus:true)
                     if (res != 0) {
-                        error 'Error in versoning images and files ..........................................'
+                        error 'Error in versoning images and files..........................................'
                     }
                     def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
                     VERSION =  matcher[0][1]

@@ -63,6 +63,7 @@ pipeline {
                     // def match = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
                     // OLD_VERSION =  match[0][1]
                     // echo "OLD is here Version ${OLD_VERSION}"
+                    sh 'cd naming-server && mvn help:effective-pom -Dverbose'
                     sh 'chmod 777 ./version-increment.sh'
                     res = sh(script:'./version-increment.sh', returnStatus:true)
                     sh 'java --version'

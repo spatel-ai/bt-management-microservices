@@ -1,5 +1,5 @@
 def res = 1
-def VERSION = 0.0.3
+def VERSION = null
 def OLD_VERSION = null
 
 pipeline {
@@ -28,21 +28,21 @@ pipeline {
         //             }
         //         }
         //     }
-        // stage('INCREMENT VERSIONS') {
-        //     steps {
-        //         // stage 2 doing Increment of version and storing old version
-        //         script {
-        //             sh 'chmod 777 ./version-increment.sh'
-        //             res = sh(script:'./version-increment.sh', returnStatus:true)
-        //             if (res != 0) {
-        //                 error 'Error in versoning images and files ..........................................'
-        //             }
-        //             def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
-        //             VERSION =  matcher[0][1]
-        //             echo "${VERSION}"
-        //         }
-        //     }
-        // }
+        stage('INCREMENT VERSIONS') {
+            steps {
+                // stage 2 doing Increment of version and storing old version
+                script {
+                    sh 'chmod 777 ./version-increment.sh'
+                    res = sh(script:'./version-increment.sh', returnStatus:true)
+                    if (res != 0) {
+                        error 'Error in versoning images and files ..........................................'
+                    }
+                    def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                    VERSION =  matcher[0][1]
+                    echo "${VERSION}"
+                }
+            }
+        }
 
         // stage('WORKSPACE CLEANING') {
         //     steps {

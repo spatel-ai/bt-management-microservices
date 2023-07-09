@@ -48,7 +48,7 @@ pipeline {
             steps {
                 // stage 3 clearing workspace
                 script {
-                    echo 'Cleaning Workspace...'
+                    echo 'Cleaning Workspace..'
                     sh 'chmod 777 ./discard-images.sh'
                     res = sh(script:"./discard-images.sh ${OLD_VERSION}", returnStatus:true)
                     echo "${res}"

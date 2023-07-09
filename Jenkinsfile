@@ -163,11 +163,9 @@ pipeline {
         stage('DEPLOY IMAGES') {
             steps {
                 script {
-                    def serverCmd = 'bash ./server-cmds.sh 0.0.3'
+                    // def serverCmd = 'bash ./server-cmds.sh 0.0.3'
                     sshagent(['ec2-user']) {
-                        sh 'scp server-cmds.sh ubuntu@3.108.28.110:/home/ubuntu'
-                        sh 'scp docker-compose.yml ubuntu@3.108.28.110:/home/ubuntu'
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@3.108.28.110 ${serverCmd}"
+                        sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.108.28.110 whoami'
                     }
                 }
             }

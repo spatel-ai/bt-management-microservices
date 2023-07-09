@@ -182,10 +182,14 @@ pipeline {
             }
         }
     }
-    /*** workspace clean up*/
-        post {
-            always {
+
+    post {
+        success {
                 cleanWs()
-            }
         }
+        failure {
+            sh 'docker images'
+            sh 'docker ps -a'
+        }
+    }
 }

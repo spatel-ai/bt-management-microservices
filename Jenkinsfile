@@ -1,7 +1,7 @@
 def AGENT_LABEL = null
 // def res = 1
-def VERSION = null
-def OLD_VERSION = null
+// def VERSION = null
+// def OLD_VERSION = null
 
 node('master') {
     stage('CONFIGURE AGENTS')
@@ -59,15 +59,24 @@ pipeline {
         stage('INCREMENT VERSIONS') {
             steps {
                 script {
-                    def match = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
-                    OLD_VERSION =  match[0][1]
-                    echo "OLD is here Version ${OLD_VERSION}"
-                    // building the version for all the files
-                    sh 'cd naming-server && mvn clean package && mvn build-helper:parse-version versions:set -DnewVersion=${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.nextIncrementalVersion} versions:commit && cd ..'
-                    def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
-                    VERSION =  matcher[0][1]
-                    echo "Latest version is here ${VERSION}"
-                    echo 'Build Image Step Started '
+                    // echo 'Versoning step  Image  Step Started '
+                    // def match = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                    // OLD_VERSION =  match[0][1]
+                    // echo "OLD is here Version ${OLD_VERSION}"
+                    // echo 'Versoning step Image Step Completed'
+                    // sh 'chmod 777 ./version-increment.sh'
+                    // res = sh(script:'./version-increment.sh', returnStatus:true)
+                    sh 'java --version'
+                    sh 'java --version'
+                    sh "cd naming-server && ls && mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit && cd .."
+                // if (res != 0) {
+                //     error 'Error in versoning images and files ..........................................'
+                // }
+                // echo 'Versoning step Image Step Completed'
+                // def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                // VERSION =  matcher[0][1]
+                // echo "Latest version is here ${VERSION}"
+                // echo 'Build Image Step Started '
                 }
             }
         }

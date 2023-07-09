@@ -59,26 +59,24 @@ pipeline {
         stage('INCREMENT VERSIONS') {
             steps {
                 script {
-                    // echo 'Versoning step  Image  Step Started '
-                    // def match = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
-                    // OLD_VERSION =  match[0][1]
-                    // echo "OLD is here Version ${OLD_VERSION}"
-                    // echo 'Versoning step Image Step Completed'
-                    // sh 'chmod 777 ./version-increment.sh'
-                    // res = sh(script:'./version-increment.sh', returnStatus:true)
+                    echo 'Versoning step  Image  Step Started '
                     sh 'java --version'
                     sh 'mvn --version'
-                    sh 'cd naming-server && ls && mvn build-helper:parse-version versions:set \
-                     -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\\${parsedVersion.nextIncrementalVersion} \
-                     versions:commit && cd ..'
-                // if (res != 0) {
-                //     error 'Error in versoning images and files ..........................................'
-                // }
-                // echo 'Versoning step Image Step Completed'
-                // def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
-                // VERSION =  matcher[0][1]
-                // echo "Latest version is here ${VERSION}"
-                // echo 'Build Image Step Started '
+                    def match = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                    OLD_VERSION =  match[0][1]
+                    echo "OLD is here Version ${OLD_VERSION}"
+                    echo 'Versoning step Image Step Completed'
+                    sh 'chmod 777 ./version-increment.sh'
+                    res = sh(script:'./version-increment.sh', returnStatus:true)
+
+                    if (res != 0) {
+                        error 'Error in versoning images and files ..........................................'
+                    }
+                    echo 'Versoning step Image Step Completed'
+                    def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                    VERSION =  matcher[0][1]
+                    echo "Latest version is here ${VERSION}"
+                    echo 'Build Image Step Started '
                 }
             }
         }
@@ -173,16 +171,16 @@ pipeline {
         stage('DEPLOY IMAGES') {
             steps {
                 script {
-                    def serverCmd = "bash ./server-cmds.sh ${VERSION}"
+                    // def serverCmd = "bash ./server-cmds.sh ${VERSION}"
                     sshagent(['ec2-user']) {
-                        sh 'chmod 777 ./helpCmd.sh'
-                        sh 'docker images'
-                        sh 'docker ps -a'
-                        sh "bash ./helpCmd.sh ${VERSION}"
-                        sh 'scp .env ubuntu@3.108.28.110:/home/ubuntu'
-                        sh 'scp server-cmds.sh ubuntu@3.108.28.110:/home/ubuntu'
-                        sh 'scp docker-compose.yml ubuntu@3.108.28.110:/home/ubuntu'
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@3.108.28.110 ${serverCmd}"
+                        // sh 'chmod 777 ./helpCmd.sh'
+                        // sh 'docker images'
+                        // sh 'docker ps -a'
+                        // sh "bash ./helpCmd.sh ${VERSION}"
+                        // sh 'scp .env ubuntu@3.108.28.110:/home/ubuntu'
+                        // sh 'scp server-cmds.sh ubuntu@3.108.28.110:/home/ubuntu'
+                        // sh 'scp docker-compose.yml ubuntu@3.108.28.110:/home/ubuntu'
+                        sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.108.28.110 whoami'
                     }
                 }
             }

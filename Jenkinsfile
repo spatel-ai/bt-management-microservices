@@ -1,5 +1,5 @@
 def res = 1
-def VERSION = null
+def VERSION = 0.0.3
 def OLD_VERSION = null
 
 pipeline {

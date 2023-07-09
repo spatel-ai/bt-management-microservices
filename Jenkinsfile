@@ -42,18 +42,18 @@ pipeline {
     }
 
     stages {
-        //     stage('checkout') {
-        //         steps {
-        //             script {
-        //                 res = sh(script: 'git log -1 --pretty=%B', returnStdout: true)
-        //                 echo "response ${res}"
-        //                 if (res.contains('[versioning skip]')) {
-        //                     error 'Jenkins CICD Module Detected to build...'
-        //                 }
-        //                 echo 'checkout was successfull'
-        //             }
-        //         }
-        //     }
+    //     stage('checkout') {
+    //         steps {
+    //             script {
+    //                 res = sh(script: 'git log -1 --pretty=%B', returnStdout: true)
+    //                 echo "response ${res}"
+    //                 if (res.contains('[versioning skip]')) {
+    //                     error 'Jenkins CICD Module Detected to build...'
+    //                 }
+    //                 echo 'checkout was successfull'
+    //             }
+    //         }
+    //     }
         stage('INCREMENT VERSIONS') {
             steps {
                 script {
@@ -163,11 +163,11 @@ pipeline {
         stage('DEPLOY IMAGES') {
             steps {
                 script {
-                    // def serverCmd = "bash ./server-cmds.sh ${version}"
+                    def serverCmd = "bash ./server-cmds.sh ${version}"
                     sshagent(['ec2-user']) {
-                        // sh 'scp server-cmds.sh ubuntu@3.108.28.110:/home/ubuntu'
-                        // sh 'scp docker-compose.yml ubuntu@3.108.28.110:/home/ubuntu'
-                        sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.108.28.110 df -h'
+                        sh 'scp server-cmds.sh ubuntu@3.108.28.110:/home/ubuntu'
+                        sh 'scp docker-compose.yml ubuntu@3.108.28.110:/home/ubuntu'
+                        sh "ssh -o StrictHostKeyChecking=no ubuntu@3.108.28.110 ${serverCmd}"
                     }
                 }
             }

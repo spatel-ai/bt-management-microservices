@@ -54,24 +54,24 @@ pipeline {
     //             }
     //         }
     //     }
-    //     stage('INCREMENT VERSIONS') {
-    //         steps {
-    //             script {
-    //                 echo 'Versoning step  Image  Step Started '
-    //                 sh 'chmod 777 ./version-increment.sh'
-    //                 res = sh(script:'./version-increment.sh', returnStatus:true)
-    //                 if (res != 0) {
-    //                     error 'Error in versoning images and files ..........................................'
-    //                 }
+        stage('INCREMENT VERSIONS') {
+            steps {
+                script {
+                    echo 'Versoning step  Image  Step Started '
+                    sh 'chmod 777 ./version-increment.sh'
+                    res = sh(script:'./version-increment.sh', returnStatus:true)
+                    if (res != 0) {
+                        error 'Error in versoning images and files ..........................................'
+                    }
 
-    //                 echo 'Versoning step Image Step Completed'
-    //                 def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
-    //                 version =  matcher[0][1]
-    //                 echo "${version}"
-    //                 echo 'Build Image Step Started '
-    //             }
-    //         }
-    //     }
+                    echo 'Versoning step Image Step Completed'
+                    def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                    version =  matcher[0][1]
+                    echo "${version}"
+                    echo 'Build Image Step Started '
+                }
+            }
+        }
 
     //     stage('WORKSPACE CLEANING') {
     //         steps {
@@ -163,7 +163,6 @@ pipeline {
         stage('DEPLOY IMAGES') {
             steps {
                 script {
-                    def version = 0.0.3
                     def serverCmd = "bash ./server-cmds.sh ${version}"
                     sshagent(['ec2-user']) {
                         sh 'scp server-cmds.sh ubuntu@3.108.28.110:/home/ubuntu'

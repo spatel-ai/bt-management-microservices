@@ -92,7 +92,7 @@ pipeline {
                 }
             }
         }
-        stage('BUILD IMAGES PUSHING') {
+        stage('IMAGE PUSHING') {
             steps {
                 // Stage 5 Building docker images and pushing it to docker
                 script {

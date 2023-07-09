@@ -72,7 +72,7 @@ pipeline {
                         cd naming-server
                         ls
                         mvn build-helper:parse-version versions:set  \
-                       -DnewVersion=${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.nextIncrementalVersion} \
+                       -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\\${parsedVersion.nextIncrementalVersion} \
                         versions:commit
                         cd ..'''
                 // if (res != 0) {

@@ -1,7 +1,6 @@
 def AGENT_LABEL = null
 def res = 1
 def VERSION = null
-def matcher = null
 def OLD_VERSION = null
 
 node('master') {
@@ -62,8 +61,8 @@ pipeline {
                 script {
                     sh 'ls -a'
                     echo 'Versoning step  Image  Step Started '
-                    matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
-                    OLD_VERSION =  matcher[0][1]
+                    def match = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                    OLD_VERSION =  match[0][1]
                     echo "OLD is here Version ${OLD_VERSION}"
                     echo 'Versoning step Image Step Completed'
                     sh 'chmod 777 ./version-increment.sh'
@@ -72,7 +71,7 @@ pipeline {
                         error 'Error in versoning images and files ..........................................'
                     }
                     echo 'Versoning step Image Step Completed'
-                    matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                    def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
                     VERSION =  matcher[0][1]
                     echo "Latest version is here ${VERSION}"
                     echo 'Build Image Step Started '

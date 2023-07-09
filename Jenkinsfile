@@ -3,38 +3,38 @@ def AGENT_LABEL = null
 // def VERSION = null
 // def OLD_VERSION = null
 
-node('master') {
-    stage('CONFIGURE AGENTS')
-     {
-        if (scm.branches[0].name.matches('Development')) {
-            AGENT_LABEL = 'SECURE-API-DEV'
-            env = 'DEV'
-        }
-     else if (scm.branches[0].name.matches('Pre-Release')) {
-            AGENT_LABEL = 'SECURE-API-UAT'
-            env = 'UAT'
-     }
-     else if (scm.branches[0].name.matches('Feature')) {
-            AGENT_LABEL = 'SECURE-API-DEV'
-            env = 'UAT'
-     }
-     else if (scm.branches[0].name.matches('Release')) {
-            AGENT_LABEL = 'SECURE-API-RELEASE'
-            env = 'PROD'
-     }
-     }
-    stage('VALIDATE AGENTS')
-    {
-        echo "${AGENT_LABEL}"
-        echo "${env}"
-    }
-}
+// node('master') {
+//     stage('CONFIGURE AGENTS')
+//      {
+//         if (scm.branches[0].name.matches('Development')) {
+//             AGENT_LABEL = 'SECURE-API-DEV'
+//             env = 'DEV'
+//         }
+//      else if (scm.branches[0].name.matches('Pre-Release')) {
+//             AGENT_LABEL = 'SECURE-API-UAT'
+//             env = 'UAT'
+//      }
+//      else if (scm.branches[0].name.matches('Feature')) {
+//             AGENT_LABEL = 'SECURE-API-DEV'
+//             env = 'UAT'
+//      }
+//      else if (scm.branches[0].name.matches('Release')) {
+//             AGENT_LABEL = 'SECURE-API-RELEASE'
+//             env = 'PROD'
+//      }
+//      }
+//     stage('VALIDATE AGENTS')
+//     {
+//         echo "${AGENT_LABEL}"
+//         echo "${env}"
+//     }
+// }
 
 pipeline {
-    agent {
-        label "${AGENT_LABEL}"
-    }
-
+    // agent {
+    //     label "${AGENT_LABEL}"
+    // }
+    agen any
     tools {
         jdk 'Java17'
         maven 'Maven-3'
@@ -68,7 +68,9 @@ pipeline {
                     // res = sh(script:'./version-increment.sh', returnStatus:true)
                     sh 'java --version'
                     sh 'java --version'
-                    sh "cd naming-server && ls && mvn clean install && mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit && cd .."
+                    sh "cd naming-server && ls && mvn clean install && mvn build-helper:parse-version versions:set  \
+                    -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} \
+                    versions:commit && cd .."
                 // if (res != 0) {
                 //     error 'Error in versoning images and files ..........................................'
                 // }

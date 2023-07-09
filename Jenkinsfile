@@ -1,5 +1,6 @@
 def AGENT_LABEL = null
 def res = 1
+def VERSION = null
 
 node('master') {
     stage('CONFIGURE AGENTS')
@@ -42,18 +43,18 @@ pipeline {
     }
 
     stages {
-    //     stage('checkout') {
-    //         steps {
-    //             script {
-    //                 res = sh(script: 'git log -1 --pretty=%B', returnStdout: true)
-    //                 echo "response ${res}"
-    //                 if (res.contains('[versioning skip]')) {
-    //                     error 'Jenkins CICD Module Detected to build...'
-    //                 }
-    //                 echo 'checkout was successfull'
-    //             }
-    //         }
-    //     }
+        //     stage('checkout') {
+        //         steps {
+        //             script {
+        //                 res = sh(script: 'git log -1 --pretty=%B', returnStdout: true)
+        //                 echo "response ${res}"
+        //                 if (res.contains('[versioning skip]')) {
+        //                     error 'Jenkins CICD Module Detected to build...'
+        //                 }
+        //                 echo 'checkout was successfull'
+        //             }
+        //         }
+        //     }
         stage('INCREMENT VERSIONS') {
             steps {
                 script {
@@ -66,8 +67,8 @@ pipeline {
 
                     echo 'Versoning step Image Step Completed'
                     def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
-                    version =  matcher[0][1]
-                    echo "${version}"
+                    VERSION =  matcher[0][1]
+                    echo "${VERSION}"
                     echo 'Build Image Step Started '
                 }
             }
@@ -163,7 +164,7 @@ pipeline {
         stage('DEPLOY IMAGES') {
             steps {
                 script {
-                    def serverCmd = "bash ./server-cmds.sh ${version}"
+                    def serverCmd = "bash ./server-cmds.sh ${VERSION}"
                     sshagent(['ec2-user']) {
                         sh 'scp server-cmds.sh ubuntu@3.108.28.110:/home/ubuntu'
                         sh 'scp docker-compose.yml ubuntu@3.108.28.110:/home/ubuntu'

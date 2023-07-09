@@ -184,13 +184,13 @@ pipeline {
         }
     }
 
-    post {
-        success {
-                cleanWs()
-        }
-        failure {
-            sh 'docker images'
-            sh 'docker ps -a'
-        }
-    }
+    // post {
+    //     success {
+    //             cleanWs()
+    //     }
+    //     failure {
+    //         sh 'docker images'
+    //         sh 'docker ps -a'
+    //     }
+    // }
 }

@@ -127,17 +127,17 @@ pipeline {
         stage('DEPLOY IMAGES') {
             steps {
                 script {
-                    def serverCmd = "bash ./server-cmds.sh ${VERSION}"
+                    // def serverCmd = "bash ./server-cmds.sh ${VERSION}"
                     sshagent(['ec2-user']) {
-                        sh 'chmod 777 ./helpCmd.sh'
-                        sh 'docker images'
-                        sh 'docker ps -a'
-                        echo "verson ${OLD_VERSION} =>>> ${VERSION}"
-                        sh "bash ./helpCmd.sh ${VERSION}"7
-                        sh 'scp .env ubuntu@3.108.28.110:/home/ubuntu'
-                        sh 'scp server-cmds.sh ubuntu@3.108.28.110:/home/ubuntu'
-                        sh 'scp docker-compose.yml ubuntu@3.108.28.110:/home/ubuntu'
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@3.108.28.110 ${serverCmd}"
+                        // sh 'chmod 777 ./helpCmd.sh'
+                        // sh 'docker images'
+                        // sh 'docker ps -a'
+                        // echo "verson ${OLD_VERSION} =>>> ${VERSION}"
+                        // sh "bash ./helpCmd.sh ${VERSION}"7
+                        // sh 'scp .env ubuntu@3.108.28.110:/home/ubuntu'
+                        // sh 'scp server-cmds.sh ubuntu@3.108.28.110:/home/ubuntu'
+                        // sh 'scp docker-compose.yml ubuntu@3.108.28.110:/home/ubuntu'
+                        sh "ssh -o StrictHostKeyChecking=no ubuntu@3.108.28.110 whoami"
                     }
                 }
             }

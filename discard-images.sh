@@ -7,8 +7,6 @@ docker rmi support-service:$1
 docker rmi authentication-service:$1
 docker rmi students-connect-service:$1
 docker rmi config-server:$1
-docker rmi paketobuildpacks/builder:base
-docker rmi paketobuildpacks/run:base-cnb
 
 docker rmi imshubhampatel/naming-server:$1
 docker rmi imshubhampatel/spring-cloud-gateway:$1
@@ -17,6 +15,4 @@ docker rmi imshubhampatel/support-service:$1
 docker rmi imshubhampatel/authentication-service:$1
 docker rmi imshubhampatel/students-connect-service:$1
 docker rmi imshubhampatel/config-server:$1
-docker rmi imshubhampatel/paketobuildpacks/builder:base
-docker rmi imshubhampatel/paketobuildpacks/run:base-cnb
 docker images

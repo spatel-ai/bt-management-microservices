@@ -1,5 +1,5 @@
 def AGENT_LABEL = null
-def res = 1
+// def res = 1
 def VERSION = null
 def OLD_VERSION = null
 

@@ -164,16 +164,11 @@ pipeline {
             steps {
                 script {
                     def serverCmd = 'bash ./server-cmds.sh 0.0.3'
-                    sshagent(['ubuntu']) {
+                    sshagent(['ec2-user']) {
                         sh 'scp server-cmds.sh ubuntu@3.108.28.110:/home/ubuntu'
                         sh 'scp docker-compose.yml ubuntu@3.108.28.110:/home/ubuntu'
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@3.108.28.110 ${serverCmd}"
                     }
-                    sh 'sudo docker system prune -f'
-                    sh 'du -d 1 /var/jenkins_home/workspace \
-                        | sort -n -r \
-                        | head -n 10 \
-                        | xargs -I {} rm -rf /var/jenkins_home/workspace/{}'
                 }
             }
         }

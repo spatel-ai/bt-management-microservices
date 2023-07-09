@@ -63,7 +63,7 @@ pipeline {
                     OLD_VERSION =  match[0][1]
                     echo "OLD is here Version ${OLD_VERSION}"
                     // building the version for all the files
-                    sh 'cd naming-server && mvn clean package && mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\\${parsedVersion.nextIncrementalVersion} versions:commit && cd ..'
+                    sh 'cd naming-server && mvn clean package && mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit && cd ..'
                     sh 'cd config-server && mvn clean package && mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\\${parsedVersion.nextIncrementalVersion} versions:commit && cd ..'
                     sh 'cd spring-cloud-gateway && mvn clean package && mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\\${parsedVersion.nextIncrementalVersion} versions:commit && cd ..'
                     sh 'cd support-service && mvn clean package && mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\\${parsedVersion.nextIncrementalVersion} versions:commit && cd ..'

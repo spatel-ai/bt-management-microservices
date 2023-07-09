@@ -64,15 +64,15 @@ pipeline {
                     // OLD_VERSION =  match[0][1]
                     // echo "OLD is here Version ${OLD_VERSION}"
                     // echo 'Versoning step Image Step Completed'
-                    // sh 'chmod 777 ./version-increment.sh'
-                    // res = sh(script:'./version-increment.sh', returnStatus:true)
+                    sh 'chmod 777 ./version-increment.sh'
+                    res = sh(script:'./version-increment.sh', returnStatus:true)
                     sh 'java --version'
                     sh 'java --version'
-                    sh 'cd naming-server && mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\\${parsedVersion.nextIncrementalVersion} versions:commit && cd .. '
-                // if (res != 0) {
-                //     error 'Error in versoning images and files ..........................................'
-                // }
-                // echo 'Versoning step Image Step Completed'
+                    // sh 'cd naming-server && mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\\${parsedVersion.nextIncrementalVersion} versions:commit && cd .. '
+                    if (res != 0) {
+                        error 'Error in versoning images and files ..........................................'
+                    }
+                    echo 'Versoning step Image Step Completed'
                 // def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
                 // VERSION =  matcher[0][1]
                 // echo "Latest version is here ${VERSION}"

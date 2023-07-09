@@ -85,7 +85,7 @@ pipeline {
                     if (res != 0) {
                         error 'Error in clearing images and files ..........................................'
                     }
-                    echo 'Docker images scan deleted  successfully'
+                    echo 'Docker images scan deleted successfully'
                 }
             }
         }

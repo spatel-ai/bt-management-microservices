@@ -13,6 +13,21 @@ pipeline {
     }
 
     stages {
+        stage('checkout') {
+            steps {
+                // stage 1 doing checkout and storing old version
+                script {
+                    res = sh(script: 'git log -1 --pretty=%B', returnStdout: true)
+                    echo "response ${res}"
+                    if (res.contains('[versioning skip]')) {
+                        error 'Jenkins CICD Module Detected to build...'
+                    }
+                    echo 'checkout was successfull'
+                    def match = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                    OLD_VERSION =  match[0][1]
+                }
+            }
+        }
         stage('INCREMENT VERSIONS') {
             steps {
                 // stage 2 doing Increment of version and storing old version
@@ -20,7 +35,7 @@ pipeline {
                     sh 'chmod 777 ./version-increment.sh'
                     res = sh(script:'./version-increment.sh', returnStatus:true)
                     if (res != 0) {
-                        error 'Error in versoning images and files..........................................'
+                        error 'Error in versoning images and files ..........................................'
                     }
                     def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
                     VERSION =  matcher[0][1]

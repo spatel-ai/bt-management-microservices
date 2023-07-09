@@ -1,7 +1,7 @@
 // def AGENT_LABEL = null
 def res = 1
 def VERSION = null
-// def OLD_VERSION = null
+def OLD_VERSION = null
 
 // node('master') {
 //     stage('CONFIGURE AGENTS')
@@ -44,18 +44,21 @@ pipeline {
     }
 
     stages {
-        //     stage('checkout') {
-        //         steps {
-        //             script {
-        //                 res = sh(script: 'git log -1 --pretty=%B', returnStdout: true)
-        //                 echo "response ${res}"
-        //                 if (res.contains('[versioning skip]')) {
-        //                     error 'Jenkins CICD Module Detected to build...'
-        //                 }
-        //                 echo 'checkout was successfull'
-        //             }
-        //         }
-        //     }
+            stage('checkout') {
+                steps {
+                    script {
+                        res = sh(script: 'git log -1 --pretty=%B', returnStdout: true)
+                        echo "response ${res}"
+                        if (res.contains('[versioning skip]')) {
+                        error 'Jenkins CICD Module Detected to build...'
+                        }
+                        echo 'checkout was successfull'
+                        def match = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                        OLD_VERSION =  match[0][1]
+                        echo "Latest version is here ${OLD_VERSION}"
+                    }
+                }
+            }
         stage('INCREMENT VERSIONS') {
             steps {
                 script {

@@ -1,6 +1,6 @@
 // def AGENT_LABEL = null
 // def res = 1
-def VERSION = null
+// def VERSION = null
 // def OLD_VERSION = null
 
 // node('master') {
@@ -68,9 +68,13 @@ pipeline {
                     // res = sh(script:'./version-increment.sh', returnStatus:true)
                     sh 'java --version'
                     sh 'java --version'
-                    sh "cd naming-server && ls && mvn clean install && mvn build-helper:parse-version versions:set  \
-                    -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} \
-                    versions:commit && cd .."
+                    sh '''
+                        cd naming-server
+                        ls
+                        mvn build-helper:parse-version versions:set  \
+                       -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} \
+                        versions:commit
+                        cd ..'''
                 // if (res != 0) {
                 //     error 'Error in versoning images and files ..........................................'
                 // }

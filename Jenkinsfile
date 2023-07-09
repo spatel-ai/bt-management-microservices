@@ -1,6 +1,7 @@
 def AGENT_LABEL = null
 def res = 1
 def VERSION = null
+def matcher = null
 
 node('master') {
     stage('CONFIGURE AGENTS')
@@ -59,16 +60,18 @@ pipeline {
             steps {
                 script {
                     echo 'Versoning step  Image  Step Started '
+                    matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                    OLD_VERSION =  matcher[0][1]
+                    echo "OLD is here Version ${OLD_VERSION}"
                     sh 'chmod 777 ./version-increment.sh'
                     res = sh(script:'./version-increment.sh', returnStatus:true)
                     if (res != 0) {
                         error 'Error in versoning images and files ..........................................'
                     }
-
                     echo 'Versoning step Image Step Completed'
-                    def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                    matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
                     VERSION =  matcher[0][1]
-                    echo "${VERSION}"
+                    echo "Latest version is here ${VERSION}"
                     echo 'Build Image Step Started '
                 }
             }
@@ -167,6 +170,8 @@ pipeline {
                     def serverCmd = "bash ./server-cmds.sh ${VERSION}"
                     sshagent(['ec2-user']) {
                         sh 'chmod 777 ./helpCmd.sh'
+                        sh 'docker images'
+                        sh 'docker ps -a'
                         sh "bash ./helpCmd.sh ${VERSION}"
                         sh 'scp .env ubuntu@3.108.28.110:/home/ubuntu'
                         sh 'scp server-cmds.sh ubuntu@3.108.28.110:/home/ubuntu'

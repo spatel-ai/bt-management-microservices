@@ -59,6 +59,7 @@ pipeline {
         stage('INCREMENT VERSIONS') {
             steps {
                 script {
+                    sh 'ls -a'
                     echo 'Versoning step  Image  Step Started '
                     matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
                     OLD_VERSION =  matcher[0][1]

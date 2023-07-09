@@ -61,9 +61,9 @@ pipeline {
                 script {
                     sh 'ls -a'
                     echo 'Versoning step  Image  Step Started '
-                    matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
-                    OLD_VERSION =  matcher[0][1]
-                    echo "OLD is here Version ${OLD_VERSION}"
+                    // matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                    // OLD_VERSION =  matcher[0][1]
+                    // echo "OLD is here Version ${OLD_VERSION}"
                     sh 'chmod 777 ./version-increment.sh'
                     res = sh(script:'./version-increment.sh', returnStatus:true)
                     if (res != 0) {
@@ -183,14 +183,4 @@ pipeline {
             }
         }
     }
-
-    // post {
-    //     success {
-    //             cleanWs()
-    //     }
-    //     failure {
-    //         sh 'docker images'
-    //         sh 'docker ps -a'
-    //     }
-    // }
 }

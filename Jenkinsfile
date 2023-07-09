@@ -1,7 +1,7 @@
 // def AGENT_LABEL = null
 def res = 1
 def VERSION = null
-def OLD_VERSION = null
+// def OLD_VERSION = null
 
 // node('master') {
 //     stage('CONFIGURE AGENTS')

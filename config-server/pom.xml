@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.bt.management.microservices</groupId>
 	<artifactId>config-server</artifactId>
-	<version>0.0.7</version>
+	<version>0.0.8</version>
 	<name>config-server</name>
 	<description>registry service is being used for applicaton.yaml file configurations </description>
 	<properties>

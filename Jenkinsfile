@@ -1,11 +1,14 @@
 def res = 1
 def VERSION = null
 def FILE_PATH = '/var/jenkins_home/jenkinsfile'
+def BRANCH_NAMES = null
 // def OLD_VERSION = null
 
 node {
     stage('get branch') {
         echo "${scm.branches[0].name}"
+        BRANCH_NAMES = scm.branches[0].name
+        echo "${BRANCH_NAMES}"
     }
 }
 
@@ -151,7 +154,7 @@ pipeline {
                         sh "chmod 777 ${FILE_PATH}/commit-bumb.sh"
                         echo "${VERSION}"
                         // sh "./commit-bumb.sh ${VERSION}"
-                        res = sh(script:"${FILE_PATH}/commit-bumb.sh ${VERSION}", returnStatus:true)
+                        res = sh(script:"${FILE_PATH}/commit-bumb.sh ${VERSION} ${BRANCH_NAMES}", returnStatus:true)
                         if (res != 0) {
                             error 'Error in making commits of images and files .........................................'
                         }

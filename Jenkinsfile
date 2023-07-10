@@ -154,7 +154,8 @@ pipeline {
                         sh "chmod 777 ${FILE_PATH}/commit-bumb.sh"
                         echo "${VERSION}"
                         // sh "./commit-bumb.sh ${VERSION}"
-                        res = sh(script:"${FILE_PATH}/commit-bumb.sh ${VERSION} ${BRANCH_NAMES}", returnStatus:true)
+                        res = sh(script:"${FILE_PATH}/commit-bumb.sh ${VERSION}", returnStatus:true)
+                        sh "git push origin HEAD:${BRANCH_NAMES}"
                         if (res != 0) {
                             error 'Error in making commits of images and files .........................................'
                         }

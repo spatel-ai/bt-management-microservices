@@ -28,7 +28,7 @@ pipeline {
                 // stage 1 doing checkout and storing old version
                 script {
                     res = sh(script: 'git log -1 --pretty=%B', returnStdout: true)
-                    echo "response ${res}"
+                    echo "responsee ${res}"
                     if (res.contains('[versioning skip]')) {
                         error 'Jenkins CICD Module Detected to build...'
                     }

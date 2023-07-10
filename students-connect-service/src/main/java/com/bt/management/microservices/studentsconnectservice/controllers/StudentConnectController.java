@@ -12,6 +12,6 @@ public class StudentConnectController {
   public String getResponse() {
     System.out.println("/////////////////////////////////");
     System.out.println("calling from connect");
-    return "<h1>Latest Version which you are using of students-connect-service v2</h1>";
+    return "<h1>Latest Version which you are using of students-connect-service v2 CONNNECT CONTROLLER</h1>";
   }
 }

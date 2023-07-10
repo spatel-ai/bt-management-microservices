@@ -11,6 +11,6 @@ public class AuthenticationController {
   @GetMapping("/")
   public String getResponse() {
     System.out.println(" From api %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-    return "<h1>Latest Version which you are using of authentication service V2</h1>";
+    return "<h1>Latest Version which you are using of authentication service AUTHENTICATION CONTROLLER</h1>";
   }
 }

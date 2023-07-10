@@ -11,6 +11,6 @@ public class HorizonServiceController {
   @GetMapping("/")
   public String getResponseString() {
     System.out.println("calling from horizons");
-    return "<h1>Latest Version which you are using of Horizons service v2</h1>";
+    return "<h1>Latest Version which you are using of Horizons service v2 HORIZON CONTROLLER</h1>";
   }
 }

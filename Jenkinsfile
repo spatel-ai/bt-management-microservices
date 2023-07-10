@@ -53,7 +53,7 @@ pipeline {
                     echo 'Cleaning Workspace...'
                     sh 'cat .env'
                     sh 'rm .env'
-                    sh 'cat .env'
+                    sh 'ls -a'
                     sh "chmod 777 ${FILE_PATH}/discard-images.sh"
                     res = sh(script:"${FILE_PATH}/discard-images.sh ${OLD_VERSION}", returnStatus:true)
                     echo "${res}"

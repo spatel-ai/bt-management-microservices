@@ -1,6 +1,6 @@
 def res = 1
 def VERSION = null
-def FILE_PATH = '/var/jenkins_home/jenkinsfile'
+def FILE_PATH = 'var/jenkins_home/jenkinsfile'
 // def OLD_VERSION = null
 
 pipeline {
@@ -33,9 +33,9 @@ pipeline {
             steps {
                 // stage 2 doing Increment of version and storing old version
                 script {
-                    cat "cat ${FILE_PATH}/version-increment.sh "
-                    sh "chmod 777 ${FILE_PATH}/version-increment.sh"
-                    res = sh(script:"${FILE_PATH}/version-increment.sh", returnStatus:true)
+                    cat "cat /${FILE_PATH}/version-increment.sh "
+                    sh "chmod 777 ./${FILE_PATH}/version-increment.sh"
+                    res = sh(script:"./${FILE_PATH}/version-increment.sh", returnStatus:true)
                     if (res != 0) {
                         error 'Error in versoning images and files ..........................................'
                     }

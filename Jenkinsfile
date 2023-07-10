@@ -33,7 +33,7 @@ pipeline {
             steps {
                 // stage 2 doing Increment of version and storing old version
                 script {
-                    cat "cat ${FILE_PATH}/version-increment.sh"
+                    cat "cat ${FILE_PATH}/version-increment.sh "
                     sh "chmod 777 ${FILE_PATH}/version-increment.sh"
                     res = sh(script:"${FILE_PATH}/version-increment.sh", returnStatus:true)
                     if (res != 0) {

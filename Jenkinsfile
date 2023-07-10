@@ -3,6 +3,12 @@ def VERSION = null
 def FILE_PATH = '/var/jenkins_home/jenkinsfile'
 // def OLD_VERSION = null
 
+node {
+    stage('get branch') {
+        echo "${scm.branches[0].name}"
+    }
+}
+
 pipeline {
     agent any
     tools {

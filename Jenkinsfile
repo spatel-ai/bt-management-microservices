@@ -78,7 +78,7 @@ pipeline {
             }
         }
 
-        stage('BUILD IMAGES PUSHING') {
+        stage('DOCKER IMAGES BUILDING') {
             steps {
                 // Stage 5 Building docker images and pushing it to docker
                 script {
@@ -92,7 +92,7 @@ pipeline {
                 }
             }
         }
-        stage('IMAGE PUSHING') {
+        stage('DOCKER IMAGES PUSHING') {
             steps {
                 // Stage 5 Building docker images and pushing it to docker
                 script {
@@ -111,7 +111,7 @@ pipeline {
             }
         }
 
-        stage('DEPLOY IMAGES') {
+        stage('IMAGES SERVER DEPLOYING') {
             steps {
                 script {
                     def serverCmd = 'bash ./server-cmds.sh'
@@ -143,6 +143,7 @@ pipeline {
                         sh 'git add naming-server/pom.xml'
                         sh 'git add config-server/pom.xml'
                         sh 'git add support-service/pom.xml'
+                        sh 'git add horizons-service/pom.xml'
                         sh 'git add spring-cloud-gateway/pom.xml'
                         sh 'git add authentication-service/pom.xml'
                         sh 'git add students-connect-service/pom.xml'

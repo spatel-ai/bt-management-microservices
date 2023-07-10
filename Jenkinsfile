@@ -51,7 +51,6 @@ pipeline {
                 // stage 3 clearing workspace
                 script {
                     echo 'Cleaning Workspace...'
-                    sh 'cat .env'
                     sh 'rm .env'
                     sh 'ls -a'
                     sh "chmod 777 ${FILE_PATH}/discard-images.sh"

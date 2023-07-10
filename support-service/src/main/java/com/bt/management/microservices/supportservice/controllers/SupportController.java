@@ -10,6 +10,6 @@ public class SupportController {
 
   @GetMapping("/")
   public String getSupport() {
-    return "<h1>Latest Version which you are using of support service</h1>";
+    return "<h1>Latest Version which you are using of support service V2</h1>";
   }
 }

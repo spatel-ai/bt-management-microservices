@@ -147,7 +147,7 @@ pipeline {
                         // sh "./commit-bumb.sh ${VERSION}"
                         res = sh(script:"${FILE_PATH}/commit-bumb.sh ${VERSION}", returnStatus:true)
                         if (res != 0) {
-                            error 'Error in making commits of images and files ..........................................'
+                            error 'Error in making commits of images and files .........................................'
                         }
                     }
                 }

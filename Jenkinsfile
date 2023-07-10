@@ -51,7 +51,6 @@ pipeline {
                 // stage 3 clearing workspace
                 script {
                     echo 'Cleaning Workspace...'
-                    sh 'rm .env'
                     sh 'ls -a'
                     sh "chmod 777 ${FILE_PATH}/discard-images.sh"
                     res = sh(script:"${FILE_PATH}/discard-images.sh ${OLD_VERSION}", returnStatus:true)
@@ -126,6 +125,8 @@ pipeline {
                         echo "verson ${OLD_VERSION} =>>> ${VERSION}"
                         sh "bash ${FILE_PATH}/helpCmd.sh ${VERSION}"
                         sh 'scp .env ubuntu@3.108.28.110:/home/ubuntu'
+                        sh 'cat .env'
+                        sh 'rm .env'
                         sh 'scp server-cmds.sh ubuntu@3.108.28.110:/home/ubuntu'
                         sh 'scp docker-compose.yml ubuntu@3.108.28.110:/home/ubuntu'
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@3.108.28.110 ${serverCmd}"

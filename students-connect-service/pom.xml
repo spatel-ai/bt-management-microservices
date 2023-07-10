@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.bt.management.microservices</groupId>
 	<artifactId>students-connect-service</artifactId>
-	<version>0.0.3</version>
+	<version>0.0.1</version>
 	<name>students-connect-service</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>

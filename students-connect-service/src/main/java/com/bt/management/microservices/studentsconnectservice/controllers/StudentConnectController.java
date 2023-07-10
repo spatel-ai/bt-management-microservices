@@ -12,6 +12,6 @@ public class StudentConnectController {
   public String getResponse() {
     System.out.println("/////////////////////////////////");
     System.out.println("calling from connect");
-    return "<h1> I'm Here from Students connect Service </h1>";
+    return "<h1>Shalini is from Student connect servicde</h1>";
   }
 }

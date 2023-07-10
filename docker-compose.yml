@@ -1,17 +1,19 @@
 version: "3.7"
 services:
   naming-server:
-    image: naming-server:0.0.1-SNAPSHOT
+    image: imshubhampatel/naming-server:${VERSION}
     ports:
       - 8761:8761
+    container_name: naming-server
     restart: on-failure
     healthcheck:
       test: "exit 0"
 
   spring-cloud-gateway:
-    image: spring-cloud-gateway:0.0.1-SNAPSHOT
+    image: imshubhampatel/spring-cloud-gateway:${VERSION}
     ports:
       - 8765:8765
+    container_name: spring-cloud-gateway
     environment:
       - eureka.client.service-url.defaultZone=http://naming-server:8761/eureka
     restart: on-failure
@@ -32,9 +34,10 @@ services:
         condition: service_healthy
 
   config-server:
-    image: config-server:0.0.1-SNAPSHOT
+    image: imshubhampatel/config-server:${VERSION}
     ports:
       - 8763:8763
+    container_name: config-server
     environment:
       - eureka.client.service-url.defaultZone=http://naming-server:8761/eureka
     depends_on:
@@ -44,9 +47,10 @@ services:
       test: "exit 0"
 
   authentication-service:
-    image: authentication-service:0.0.1-SNAPSHOT
+    image: imshubhampatel/authentication-service:${VERSION}
     ports:
       - 8081:8081
+    container_name: authentication-service
     environment:
       - eureka.client.service-url.defaultZone=http://naming-server:8761/eureka
     depends_on:
@@ -59,9 +63,10 @@ services:
     restart: on-failure
 
   horizons-service:
-    image: horizons-service:0.0.1-SNAPSHOT
+    image: imshubhampatel/horizons-service:${VERSION}
     ports:
       - 8082:8082
+    container_name: horizons-service
     environment:
       - eureka.client.service-url.defaultZone=http://naming-server:8761/eureka
     depends_on:
@@ -74,9 +79,10 @@ services:
     restart: on-failure
 
   students-connect-service:
-    image: students-connect-service:0.0.1-SNAPSHOT
+    image: imshubhampatel/students-connect-service:${VERSION}
     ports:
       - 8083:8083
+    container_name: students-connect-service
     environment:
       - eureka.client.service-url.defaultZone=http://naming-server:8761/eureka
     depends_on:
@@ -89,9 +95,10 @@ services:
     restart: on-failure
 
   support-service:
-    image: support-service:0.0.1-SNAPSHOT
+    image: imshubhampatel/support-service:${VERSION}
     ports:
       - 8084:8084
+    container_name: support-service
     environment:
       - eureka.client.service-url.defaultZone=http://naming-server:8761/eureka
     depends_on:

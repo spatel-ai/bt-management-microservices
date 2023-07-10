@@ -1,5 +1,11 @@
 HELP.md
-target/
+naming-server/target/
+config-server/target/
+authentication-service/target/
+horizons-service/target/
+support-service/target/
+students-connect-service/target/
+spring-cloud-gateway/target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/

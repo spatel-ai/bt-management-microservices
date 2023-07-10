@@ -140,7 +140,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'github-server-token', passwordVariable: 'PASS', usernameVariable:'USER')]) {
                         sh 'git config --global user.email jenkins@btirt.com'
                         sh 'git config --global user.name jenkins'
-                        sh 'git status'
+                        sh 'git status '
                         sh "git remote set-url origin https://imshubhampatel:${PASS}@github.com/imshubhampatel/bt-management-microservices.git"
                         sh "chmod 777 ${FILE_PATH}/commit-bumb.sh"
                         echo "${VERSION}"

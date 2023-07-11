@@ -156,6 +156,8 @@ pipeline {
                         // sh "./commit-bumb.sh ${VERSION}"
                         res = sh(script:"${FILE_PATH}/commit-bumb.sh ${VERSION}", returnStatus:true)
                         sh 'git branch -r'
+                        echo 'git branch -a'
+                        sh 'git branch -a'
                         echo "${BRANCH_NAMES}"
                         sh "git push -u origin ${BRANCH_NAMES}"
                         if (res != 0) {

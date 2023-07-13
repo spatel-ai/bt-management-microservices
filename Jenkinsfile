@@ -8,6 +8,7 @@ node {
     stage('get branch') {
         echo "${scm.branches[0].name}"
         BRANCH_NAMES = scm.branches[0].name
+        env.BRANCH_NAME = BRANCH_NAMES
         echo "${BRANCH_NAMES}"
     }
 }

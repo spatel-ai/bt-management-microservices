@@ -29,7 +29,7 @@ pipeline {
                 script {
                     res = sh(script: 'git log -1 --pretty=%B', returnStdout: true)
                     echo "responsee ${res}"
-                    echo "${BRANCHNAME}"
+                    echo "${env.BRANCH_NAME}"
                     if (res.contains('[versioning skip]')) {
                         error 'Jenkins CICD Module Detected to build...'
                     }

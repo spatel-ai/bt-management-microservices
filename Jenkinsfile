@@ -31,6 +31,7 @@ pipeline {
                     res = sh(script: 'git log -1 --pretty=%B', returnStdout: true)
                     echo "responsee ${res}"
                     echo "${env.BRANCH_NAME}"
+                    echo "${BRANCH_NAME}"
                     if (res.contains('[versioning skip]')) {
                         error 'Jenkins CICD Module Detected to build...'
                     }
@@ -162,7 +163,8 @@ pipeline {
                         echo 'git branch -a'
                         sh 'git branch -a'
                         echo "${BRANCH_NAMES}"
-                        sh "git push -u origin ${BRANCH_NAMES}"
+                        echo "${env.BRANCH_NAME}"
+                        sh "git push origin HEAD:${env.BRANCH_NAME}"
                         if (res != 0) {
                             error 'Error in making commits of images and files .........................................'
                         }

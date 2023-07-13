@@ -5,6 +5,7 @@ def FILE_PATH = '/var/jenkins_home/jenkinsfile'
 node {
     stage('get branch') {
         checkout scm
+        echo 'GIT_BRANCH'
         echo "${env.GIT_BRANCH}"
         echo "${scm.branches}"
         echo "${scm.branches[0].name}"

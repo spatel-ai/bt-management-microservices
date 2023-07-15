@@ -1,7 +1,6 @@
 def res = 1
 def VERSION = null
 def FILE_PATH = '/var/jenkins_home/jenkinsfile'
-def matcher  = null
 
 node {
     stage('get branch') {
@@ -31,7 +30,8 @@ pipeline {
                     echo 'Cleaning Workspace...'
                     sh "cat ${FILE_PATH}/discard-images.sh"
                     sh "chmod 777 ${FILE_PATH}/discard-images.sh"
-                    matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                    def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                    echo"${matcher}"
                     OLD_VERSION =  matcher[0][1]
                     echo'above issue is here'
                     res = sh(script:"${FILE_PATH}/discard-images.sh ${OLD_VERSION}", returnStatus:true)

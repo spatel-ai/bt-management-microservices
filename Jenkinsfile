@@ -37,6 +37,13 @@ pipeline {
                     echo"${match[0]}"
                     OLD_VERSION =  match[0][1]
                     echo"${OLD_VERSION}"
+                }
+            }
+        }
+        stage('IMAGES CLEANING') {
+            steps {
+                // stage 3 clearing workspace
+                script {
                     res = sh(script:"${FILE_PATH}/discard-images.sh ${OLD_VERSION}", returnStatus:true)
                     echo "${res}"
                     if (res != 0) {

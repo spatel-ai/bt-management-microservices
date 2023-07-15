@@ -22,27 +22,28 @@ pipeline {
     }
 
     stages {
-        stage('WORKSPACE CLEANING') {
-            steps {
-                // stage 3 clearing workspace
-                script {
-                    echo"${env.BRANCH_NAME}"
-                    echo 'Cleaning Workspace...'
-                    sh "cat ${FILE_PATH}/discard-images.sh"
-                    sh "chmod 777 ${FILE_PATH}/discard-images.sh"
-                    def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
-                    echo"${matcher}"
-                    OLD_VERSION =  matcher[0][1]
-                    echo'above issue is here'
-                    res = sh(script:"${FILE_PATH}/discard-images.sh ${OLD_VERSION}", returnStatus:true)
-                    echo "${res}"
-                    if (res != 0) {
-                        error 'Error in clearing images and files ..........................................'
-                    }
-                    echo 'Docker images scan deleted successfully'
-                }
-            }
-        }
+        // stage('WORKSPACE CLEANING') {
+        //     steps {
+        //         // stage 3 clearing workspace
+        //         script {
+        //             echo"${env.BRANCH_NAME}"
+        //             echo 'Cleaning Workspace...'
+        //             sh "cat ${FILE_PATH}/discard-images.sh"
+        //             sh "chmod 777 ${FILE_PATH}/discard-images.sh"
+        //             sh 'ls -a'
+        //             def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+        //             echo"${matcher}"
+        //             OLD_VERSION =  matcher[0][1]
+        //             echo'above issue is here'
+        //             res = sh(script:"${FILE_PATH}/discard-images.sh ${OLD_VERSION}", returnStatus:true)
+        //             echo "${res}"
+        //             if (res != 0) {
+        //                 error 'Error in clearing images and files ..........................................'
+        //             }
+        //             echo 'Docker images scan deleted successfully'
+        //         }
+        //     }
+        // }
         stage('INCREMENT VERSIONS') {
             steps {
                 // stage 2 doing Increment of version and storing old version
@@ -53,7 +54,7 @@ pipeline {
                     if (res != 0) {
                         error 'Error in versoning images and files ..........................................'
                     }
-                    matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                    def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
                     VERSION =  matcher[0][1]
                     echo "${VERSION}"
                 }

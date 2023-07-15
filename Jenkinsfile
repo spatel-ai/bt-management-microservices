@@ -1,5 +1,6 @@
 def res = 1
 def VERSION = null
+def OLD_VERSION = null
 def FILE_PATH = '/var/jenkins_home/jenkinsfile'
 
 node {

@@ -144,7 +144,7 @@ pipeline {
         stage('VERSION UPDATE') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'github-server-token', passwordVariable: 'PASS', usernameVariable:'USER')]) {
+                    withCredentials([usernamePassword(credentialsId: 'git-server-token', passwordVariable: 'PASS', usernameVariable:'USER')]) {
                         sh 'git config --global user.email jenkins@btirt.com'
                         sh 'git config --global user.name jenkins'
                         sh 'git status '

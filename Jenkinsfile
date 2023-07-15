@@ -4,13 +4,14 @@ def OLD_VERSION = null
 def FILE_PATH = '/var/jenkins_home/jenkinsfile'
 
 node {
-    stage('get branch') {
+    stage('BRANCH AND VERSION') {
         echo "${scm.branches} all branches "
         echo "${scm.branches[0].name}"
         env.BRANCH_NAME = scm.branches[0].name
         echo "${BRANCH_NAME}"
         def match = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
         OLD_VERSION =  match[0][1]
+        echo"${OLD_VERSION}"
     }
 }
 
@@ -33,8 +34,6 @@ pipeline {
                     echo 'Cleaning Workspace...'
                     sh "cat ${FILE_PATH}/discard-images.sh"
                     sh "chmod 777 ${FILE_PATH}/discard-images.sh"
-                    sh 'ls -a'
-
                     echo "${OLD_VERSION}"
                     res = sh(script:"${FILE_PATH}/discard-images.sh ${OLD_VERSION}", returnStatus:true)
                     echo "${res}"

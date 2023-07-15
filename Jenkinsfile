@@ -5,6 +5,7 @@ def FILE_PATH = '/var/jenkins_home/jenkinsfile'
 
 node {
     stage('BRANCH AND VERSION') {
+        checkout scm
         echo "${scm.branches} all branches "
         echo "${scm.branches[0].name}"
         env.BRANCH_NAME = scm.branches[0].name
@@ -152,6 +153,17 @@ pipeline {
                         }
                         cleanWs()
                     }
+                }
+            }
+            post {
+                // Clean after build
+                always {
+                    cleanWs(cleanWhenNotBuilt: false,
+                    deleteDirs: true,
+                    disableDeferredWipeout: true,
+                    notFailBuild: true,
+                    patterns: [[pattern: '.gitignore', type: 'INCLUDE'],
+                               [pattern: '.propsfile', type: 'EXCLUDE']])
                 }
             }
         }

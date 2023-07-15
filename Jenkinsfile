@@ -36,6 +36,7 @@ pipeline {
                     matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
                     echo"${matcher}"
                     OLD_VERSION =  matcher[0][1]
+                    echo "${OLD_VERSION}"
                     echo'above issue is here'
                     res = sh(script:"${FILE_PATH}/discard-images.sh ${OLD_VERSION}", returnStatus:true)
                     echo "${res}"

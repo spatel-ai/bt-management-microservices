@@ -38,12 +38,12 @@ pipeline {
                     OLD_VERSION =  matcher[0][1]
                     echo "${OLD_VERSION}"
                     echo'above issue is here'
-                    res = sh(script:"${FILE_PATH}/discard-images.sh ${OLD_VERSION}", returnStatus:true)
-                    echo "${res}"
-                    if (res != 0) {
-                        error 'Error in clearing images and files ..........................................'
-                    }
-                    echo 'Docker images scan deleted successfully'
+                    // res = sh(script:"${FILE_PATH}/discard-images.sh ${OLD_VERSION}", returnStatus:true)
+                    // echo "${res}"
+                    // if (res != 0) {
+                    //     error 'Error in clearing images and files ..........................................'
+                    // }
+                    // echo 'Docker images scan deleted successfully'
                 }
             }
         }

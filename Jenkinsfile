@@ -5,6 +5,7 @@ def FILE_PATH = '/var/jenkins_home/jenkinsfile'
 
 node {
     stage('BRANCH AND VERSION') {
+        cleanWs()
         echo "${scm.branches} all branches "
         echo "${scm.branches[0].name}"
         env.BRANCH_NAME = scm.branches[0].name
@@ -33,6 +34,7 @@ pipeline {
                 script {
                     echo"${env.BRANCH_NAME}"
                     echo 'Cleaning Workspace...'
+                    sh'ls -a'
                     sh "cat ${FILE_PATH}/discard-images.sh"
                     sh "chmod 777 ${FILE_PATH}/discard-images.sh"
                     echo "${OLD_VERSION}"

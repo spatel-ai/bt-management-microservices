@@ -30,8 +30,9 @@ pipeline {
                     echo 'Cleaning Workspace...'
                     sh "cat ${FILE_PATH}/discard-images.sh"
                     sh "chmod 777 ${FILE_PATH}/discard-images.sh"
-                    def match = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
-                    OLD_VERSION =  match[0][1]
+                    // def match = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                    // OLD_VERSION =  match[0][1]
+                    echo'above issue is here'
                     res = sh(script:"${FILE_PATH}/discard-images.sh ${OLD_VERSION}", returnStatus:true)
                     echo "${res}"
                     if (res != 0) {

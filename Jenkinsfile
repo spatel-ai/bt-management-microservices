@@ -2,15 +2,24 @@ def res = 1
 def VERSION = null
 def FILE_PATH = '/var/jenkins_home/jenkinsfile'
 
+node {
+    stage('get branch') {
+        echo "${scm.branches}"
+        echo "${scm.branches[0].name}"
+        env.BRANCH_NAME =  "${GIT_BRANCH.split('/')[1]}"
+        echo "${BRANCH_NAME}"
+    }
+}
+
 pipeline {
     agent any
     tools {
         jdk 'Java17'
         maven 'Maven-3'
     }
-    // environment {
-    //     NEW_VERSION = '1.0.0'
-    // }
+    environment {
+        NEW_VERSION = '1.0.0'
+    }
 
     stages {
         stage('WORKSPACE CLEANING') {

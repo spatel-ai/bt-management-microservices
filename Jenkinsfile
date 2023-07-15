@@ -6,10 +6,8 @@ node {
     stage('get branch') {
         checkout scm
         echo 'GIT_BRANCH'
-        echo "${GIT_BRANCH}"
         echo "${scm.branches}"
         echo "${scm.branches[0].name}"
-        env.BRANCH_NAME =  "${GIT_BRANCH.split('/')[1]}"
     }
 }
 

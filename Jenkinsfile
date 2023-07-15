@@ -6,7 +6,7 @@ node {
     stage('get branch') {
         echo "${scm.branches} all branches "
         echo "${scm.branches[0].name}"
-        env.BRANCH_NAME =  "${GIT_BRANCH.split('/')[1]}"
+        env.BRANCH_NAME = scm.branches[0].name
         echo "${BRANCH_NAME}"
     }
 }

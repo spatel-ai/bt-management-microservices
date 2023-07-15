@@ -1,6 +1,7 @@
 def res = 1
 def VERSION = null
 def FILE_PATH = '/var/jenkins_home/jenkinsfile'
+def matcher  = null
 
 node {
     stage('get branch') {
@@ -30,8 +31,8 @@ pipeline {
                     echo 'Cleaning Workspace...'
                     sh "cat ${FILE_PATH}/discard-images.sh"
                     sh "chmod 777 ${FILE_PATH}/discard-images.sh"
-                    // def match = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
-                    // OLD_VERSION =  match[0][1]
+                    matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                    OLD_VERSION =  matcher[0][1]
                     echo'above issue is here'
                     res = sh(script:"${FILE_PATH}/discard-images.sh ${OLD_VERSION}", returnStatus:true)
                     echo "${res}"
@@ -52,7 +53,7 @@ pipeline {
                     if (res != 0) {
                         error 'Error in versoning images and files ..........................................'
                     }
-                    def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                    matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
                     VERSION =  matcher[0][1]
                     echo "${VERSION}"
                 }

@@ -11,6 +11,6 @@ public class AuthenticationController {
   @GetMapping("/")
   public String getResponse() {
     System.out.println(" From api %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-    return "<h1>Shubham is from authentication-service</h1>";
+    return "<h1>Shubham is from authentication-service is controlled</h1>";
   }
 }

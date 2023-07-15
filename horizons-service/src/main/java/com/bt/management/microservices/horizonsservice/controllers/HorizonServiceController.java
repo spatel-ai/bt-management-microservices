@@ -11,6 +11,6 @@ public class HorizonServiceController {
   @GetMapping("/")
   public String getResponseString() {
     System.out.println("calling from horizons");
-    return "<h1>Shriddha is from horizons service</h1>";
+    return "<h1>Shriddha is from horizonsupdated servcie is ser service</h1>";
   }
 }

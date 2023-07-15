@@ -10,7 +10,7 @@ node {
         env.BRANCH_NAME = scm.branches[0].name
         echo "${BRANCH_NAME}"
         def match = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
-        echo"${match}"
+        echo"${match[0]}"
         OLD_VERSION =  match[0][1]
         echo"${OLD_VERSION}"
     }

@@ -1,13 +1,15 @@
 def res = 1
 def VERSION = null
+def OLD_VERSION = null
 def FILE_PATH = '/var/jenkins_home/jenkinsfile'
 
 node {
-    stage('get branch') {
+    stage('BRANCH AND VERSION') {
         checkout scm
-        echo 'GIT_BRANCH'
-        echo "${scm.branches}"
+        echo "${scm.branches} all branches "
         echo "${scm.branches[0].name}"
+        env.BRANCH_NAME = scm.branches[0].name
+        echo "${BRANCH_NAME}"
     }
 }
 
@@ -22,18 +24,32 @@ pipeline {
     }
 
     stages {
-        stage('checkout') {
+        stage('WORKSPACE CLEANING') {
             steps {
-                // stage 1 doing checkout and storing old version
+                // stage 3 clearing workspace
                 script {
-                    res = sh(script: 'git log -1 --pretty=%B', returnStdout: true)
-                    echo "responsee ${res}"
-                    if (res.contains('[versioning skip]')) {
-                        error 'Jenkins CICD Module Detected to build...'
-                    }
-                    echo 'checkout was successfull'
+                    echo"${env.BRANCH_NAME}"
+                    echo 'Cleaning Workspace...'
+                    sh'ls -a'
+                    sh "cat ${FILE_PATH}/discard-images.sh"
+                    sh "chmod 777 ${FILE_PATH}/discard-images.sh"
                     def match = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
+                    echo"${match[0]}"
                     OLD_VERSION =  match[0][1]
+                    echo"${OLD_VERSION}"
+                }
+            }
+        }
+        stage('IMAGES CLEANING') {
+            steps {
+                // stage 3 clearing workspace
+                script {
+                    res = sh(script:"${FILE_PATH}/discard-images.sh ${OLD_VERSION}", returnStatus:true)
+                    echo "${res}"
+                    if (res != 0) {
+                        error 'Error in clearing images and files ..........................................'
+                    }
+                    echo 'Docker images scan deleted successfully'
                 }
             }
         }
@@ -50,23 +66,6 @@ pipeline {
                     def matcher = readFile('naming-server/pom.xml') =~ '<version>(.+)</version>'
                     VERSION =  matcher[0][1]
                     echo "${VERSION}"
-                }
-            }
-        }
-
-        stage('WORKSPACE CLEANING') {
-            steps {
-                // stage 3 clearing workspace
-                script {
-                    echo 'Cleaning Workspace...'
-                    sh 'ls -a'
-                    sh "chmod 777 ${FILE_PATH}/discard-images.sh"
-                    res = sh(script:"${FILE_PATH}/discard-images.sh ${OLD_VERSION}", returnStatus:true)
-                    echo "${res}"
-                    if (res != 0) {
-                        error 'Error in clearing images and files ..........................................'
-                    }
-                    echo 'Docker images scan deleted successfully'
                 }
             }
         }
@@ -145,7 +144,7 @@ pipeline {
         stage('VERSION UPDATE') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'github-server-token', passwordVariable: 'PASS', usernameVariable:'USER')]) {
+                    withCredentials([usernamePassword(credentialsId: 'git-server-token', passwordVariable: 'PASS', usernameVariable:'USER')]) {
                         sh 'git config --global user.email jenkins@btirt.com'
                         sh 'git config --global user.name jenkins'
                         sh 'git status '
@@ -156,11 +155,26 @@ pipeline {
                         res = sh(script:"${FILE_PATH}/commit-bumb.sh ${VERSION}", returnStatus:true)
                         sh "git push origin HEAD:${BRANCH_NAME}"
                         if (res != 0) {
-                            error 'Error in making commits of images and files .........................................'
+                            error 'Error in making commits of images and files.........................................'
                         }
+                        cleanWs()
                     }
                 }
             }
         }
+    }
+    post {
+            always {
+                cleanWs(
+                cleanWhenNotBuilt: false,
+                deleteDirs: true,
+                disableDeferredWipeout: true,
+                notFailBuild: true,
+                patterns:[
+                    [pattern: '.gitignore', type: 'INCLUDE'],
+                    [pattern: '.propsfile', type: 'EXCLUDE']
+                 ]
+                )
+            }
     }
 }

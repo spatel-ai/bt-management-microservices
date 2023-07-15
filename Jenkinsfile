@@ -5,7 +5,6 @@ def FILE_PATH = '/var/jenkins_home/jenkinsfile'
 
 node {
     stage('BRANCH AND VERSION') {
-        cleanWs()
         echo "${scm.branches} all branches "
         echo "${scm.branches[0].name}"
         env.BRANCH_NAME = scm.branches[0].name
@@ -151,6 +150,7 @@ pipeline {
                         if (res != 0) {
                             error 'Error in making commits of images and files .........................................'
                         }
+                        cleanWs()
                     }
                 }
             }

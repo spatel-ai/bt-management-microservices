@@ -4,12 +4,14 @@ server:
 spring:
   application:
     name: SUPPORT-SERVICE
-
+  data:
+    mongodb:
+      uri: mongodb+srv://admin:admin@bt-management-db.xh5vzcw.mongodb.net/bt-management-db?retryWrites=true&w=majority
 eureka:
   instance:
     prefer-ip-address: true
   client:
     fetch-registry: true
     register-with-eureka: true
-    service-url: 
+    service-url:
       defaultZone: http://localhost:8761/eureka

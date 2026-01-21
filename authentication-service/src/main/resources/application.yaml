@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: AUTHENTICATION-SERVICE
+  data:
+    mongodb:
+      uri: mongodb+srv://admin:admin@bt-management-db.xh5vzcw.mongodb.net/bt-management-db?retryWrites=true&w=majority
 eureka:
   instance:
     prefer-ip-address: true

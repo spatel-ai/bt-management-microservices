@@ -18,6 +18,16 @@ spring:
           uri: lb://SUPPORT-SERVICE # URL for the "support service" route
           predicates:
             - Path=/support-service/**
+
+        - id: "HORIZONS-SERVICE"
+          uri: lb://HORIZONS-SERVICE # URL for the "horizons service" route
+          predicates:
+            - Path=/horizons-service/**
+
+        - id: "STUDENTS-CONNECT-SERVICE"
+          uri: lb://STUDENTS-CONNECT-SERVICE # URL for the "studnets connect service" route
+          predicates:
+            - Path=/students-connect-service/**
 eureka:
   instance:
     prefer-ip-address: true

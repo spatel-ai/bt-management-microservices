@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bt.management.microservices.authenticationservice.config.UserConfiguration;
+import com.bt.management.microservices.authenticationservice.helpers.EmailChannel;
+import com.bt.management.microservices.authenticationservice.helpers.NotifyChannel;
+import com.bt.management.microservices.authenticationservice.helpers.NotifyTypes;
+import com.bt.management.microservices.authenticationservice.helpers.PushChannel;
+import com.bt.management.microservices.authenticationservice.helpers.SmsChannel;
 import com.bt.management.microservices.authenticationservice.notification.Notification;
-import com.bt.management.microservices.authenticationservice.notification.NotifyChannel;
-import com.bt.management.microservices.authenticationservice.notification.NotifyTypes;
 
 @RestController
 @RequestMapping("/authentication-service")
@@ -20,15 +23,15 @@ public class AuthenticationController {
   private UserConfiguration userConfig;
 
   @Autowired
-  @NotifyChannel(value = NotifyTypes.EMAIL)
-  private Notification emailNotification;
-
-  @Autowired
-  @NotifyChannel(value = NotifyTypes.SMS)
+  @SmsChannel
   private Notification smsNotification;
 
   @Autowired
-  @NotifyChannel(value = NotifyTypes.PUSH)
+  @EmailChannel
+  private Notification emailNotification;
+
+  @Autowired
+  @PushChannel
   private Notification pushNotification;
 
   private static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
@@ -37,7 +40,7 @@ public class AuthenticationController {
   public String getResponse() {
     log.info("Handling GET /authentication-service/");
     log.info("{}", userConfig.toString());
-    emailNotification.send("Hi Shubham");
+    emailNotification.send("HI Shubham");
     smsNotification.send("Hi Shubham");
     pushNotification.send("Hi Shubham");
     return "hi from Authentication service";

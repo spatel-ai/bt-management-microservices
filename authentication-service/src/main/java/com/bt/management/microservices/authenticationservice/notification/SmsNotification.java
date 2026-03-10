@@ -1,11 +1,11 @@
 package com.bt.management.microservices.authenticationservice.notification;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
+import com.bt.management.microservices.authenticationservice.helpers.SmsChannel;
+
 @Component
-@Primary
-@NotifyChannel(NotifyTypes.SMS)
+@SmsChannel
 public class SmsNotification implements Notification {
     @Override
     public void send(String message) {

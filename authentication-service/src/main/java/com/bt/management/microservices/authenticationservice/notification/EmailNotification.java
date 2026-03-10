@@ -1,9 +1,10 @@
 package com.bt.management.microservices.authenticationservice.notification;
 
 import org.springframework.stereotype.Component;
+import com.bt.management.microservices.authenticationservice.helpers.EmailChannel;
 
 @Component
-@NotifyChannel(value = NotifyTypes.EMAIL)
+@EmailChannel
 public class EmailNotification implements Notification {
 
     @Override

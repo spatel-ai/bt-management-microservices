@@ -6,7 +6,19 @@ spring:
     name: AUTHENTICATION-SERVICE
   data:
     mongodb:
-      uri: mongodb+srv://admin:admin@bt-management-db.xh5vzcw.mongodb.net/bt-management-db?retryWrites=true&w=majority
+      uri: mongodb+srv://admin:admin@db-test.eqxxnat.mongodb.net/bt-management-db?authSource=admin&retryWrites=true&w=majority
+
+user:
+  name: Shubham Patel
+  email: sptel.ai@gmail.com
+  password: admin
+  address:
+    state: Madhya Pradesh
+    city: Sagar
+    pincode: 470002
+    contacts:
+      - 9389112183
+      - 9389112
 eureka:
   instance:
     prefer-ip-address: true

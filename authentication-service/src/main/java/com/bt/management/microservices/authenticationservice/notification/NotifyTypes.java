@@ -1,5 +1,7 @@
 package com.bt.management.microservices.authenticationservice.notification;
 
-public interface Notification {
-    void send(String message);
+public enum NotifyTypes {
+    SMS,
+    EMAIL,
+    PUSH,
 }

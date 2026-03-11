@@ -4,9 +4,8 @@ server:
 spring:
   application:
     name: AUTHENTICATION-SERVICE
-  data:
-    mongodb:
-      uri: mongodb+srv://admin:admin@db-test.eqxxnat.mongodb.net/bt-management-db?authSource=admin&retryWrites=true&w=majority
+  mongodb:
+    uri: mongodb+srv://admin:admin@db-test.eqxxnat.mongodb.net/bt-management-db?authSource=admin&retryWrites=true&w=majority
 
 user:
   name: Shubham Patel
@@ -18,7 +17,18 @@ user:
     pincode: 470002
     contacts:
       - 9389112183
-      - 9389112
+      - 9389112183
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      horizonService:
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+
 eureka:
   instance:
     prefer-ip-address: true

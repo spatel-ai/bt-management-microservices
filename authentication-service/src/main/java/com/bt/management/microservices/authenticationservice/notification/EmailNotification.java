@@ -1,15 +1,19 @@
 package com.bt.management.microservices.authenticationservice.notification;
 
 import org.springframework.stereotype.Component;
-import com.bt.management.microservices.authenticationservice.helpers.EmailChannel;
+import com.bt.management.microservices.authenticationservice.helpers.NotifyChannel;
+import com.bt.management.microservices.authenticationservice.helpers.NotifyTypes;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Component
-@EmailChannel
+@NotifyChannel(value = NotifyTypes.EMAIL)
+@Slf4j
 public class EmailNotification implements Notification {
 
     @Override
     public void send(String message) {
-        System.out.println(message + " Email Notification are sent !");
+        log.info("{} Email Notification are sent !", message);
     }
 
 }

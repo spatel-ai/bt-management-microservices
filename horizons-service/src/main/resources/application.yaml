@@ -7,7 +7,7 @@ spring:
 
   data:
     mongodb:
-      uri: mongodb+srv://admin:admin@bt-management-db.xh5vzcw.mongodb.net/bt-management-db?retryWrites=true&w=majority
+      uri: mongodb+srv://admin:admin@db-test.eqxxnat.mongodb.net/bt-management-db?authSource=admin&retryWrites=true&w=majority
 eureka:
   instance:
     prefer-ip-address: true
